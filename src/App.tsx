@@ -1,17 +1,15 @@
 import { useState } from 'react'
-import { Button } from 'antd'
-import reactLogo from './assets/react.svg'
+import reactLogo from './assets/icons/react.svg'
 import viteLogo from '/vite.svg'
+import SvgIcon from '@/components/SvgIcon/index.tsx'
 import '@/App.css'
 
-function App() {
+const App = () => {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <Button type="primary" onClick={() => console.log(import.meta.env)}>
-        测试按钮
-      </Button>
+      <SvgIcon name="react" width="40px" height="40px" />
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
