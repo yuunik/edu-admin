@@ -9,7 +9,9 @@ function App() {
 
   return (
     <>
-      <Button type="primary">测试按钮</Button>
+      <Button type="primary" onClick={() => console.log(import.meta.env)}>
+        测试按钮
+      </Button>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
