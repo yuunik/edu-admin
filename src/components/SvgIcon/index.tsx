@@ -23,7 +23,7 @@ const SvgIcon: React.FC<Props> = ({
   color = '',
 }) => {
   return (
-    <div>
+    <div className="svg-icon">
       <svg style={{ width, height }}>
         <use xlinkHref={`${prefix}${name}`} fill={color}></use>
       </svg>
