@@ -4,9 +4,11 @@ import path from 'path'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 // https://vitejs.dev/config/
+// @ts-ignore
 export default defineConfig({
   plugins: [
     react(),
+    // svg 插件
     createSvgIconsPlugin({
       // svg 图片文件夹位置
       iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],

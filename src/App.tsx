@@ -1,15 +1,24 @@
 import { useState } from 'react'
 import reactLogo from './assets/icons/react.svg'
 import viteLogo from '/vite.svg'
-import SvgIcon from '@/components/SvgIcon/index.tsx'
 import '@/App.scss'
+import { Button } from 'antd'
+import { request } from '@/utils'
 
 const App = () => {
   const [count, setCount] = useState(0)
 
+  const getData = async () => {
+    const result = await request({
+      url: 'http://ajax-api.itheima.net/api/books1234',
+      method: 'get',
+    })
+    console.log(result.data)
+  }
+
   return (
     <>
-      <SvgIcon name="react" width="40px" height="40px" />
+      <Button onClick={getData}>发送请求</Button>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
