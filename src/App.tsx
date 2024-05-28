@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <>
-      <Button onClick={getData}>发送请求</Button>
+      <Button onClick={getData}>请求测试</Button>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
