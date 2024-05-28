@@ -7,7 +7,7 @@ import router from '@/router'
 import 'virtual:svg-icons-register'
 // 引入全局样式
 import '@/styles/index.scss'
-import './index.scss'
+// import './index.scss'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

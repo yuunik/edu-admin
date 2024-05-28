@@ -1,0 +1,63 @@
+.login {
+  background-image: url("@/assets/images/login_bg.svg");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    width: 96%;
+    height: 94%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 3px #ccc;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .left {
+      width: 750px;
+      height: 100%;
+
+      .login-pic {
+        width: 100%;
+        height: 100%;
+        padding: 8%;
+        box-sizing: border-box;
+      }
+    }
+
+    .login-form {
+      width: calc(100% - 750px);
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      margin: 30px 50px 30px 30px;
+      padding: 50px;
+      box-sizing: border-box;
+
+      .header {
+        .logo {
+          width: 75px;
+          vertical-align: top;
+        }
+
+        .system-title {
+          font: bold 48px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif;
+          color: rgb(71, 87, 104);
+          margin-left: 20px;
+        }
+      }
+
+      .content {
+        margin-top: 30px;
+
+        .btn-reset {
+          margin-right: 40px;
+        }
+      }
+    }
+  }
+}
