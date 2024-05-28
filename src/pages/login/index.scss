@@ -18,7 +18,7 @@
     align-items: center;
 
     .left {
-      width: 750px;
+      width: 65%;
       height: 100%;
 
       .login-pic {
@@ -30,7 +30,7 @@
     }
 
     .login-form {
-      width: calc(100% - 750px);
+      width: 35%;
       background-color: rgba(255, 255, 255, 0.8);
       border-radius: 10px;
       box-shadow: 0 0 10px #ccc;
