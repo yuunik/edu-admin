@@ -3,17 +3,20 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { Dispatch } from '@reduxjs/toolkit'
 import { login } from '@/api/login.tsx'
 import { LoginParams } from '@/types/login.tsx'
+import { GET_TOKEN, SET_TOKEN } from '@/utils'
 
 const userStore = createSlice({
   name: 'user',
   initialState: {
     // 用户 token
-    token: '',
+    token: GET_TOKEN() || '',
   },
   reducers: {
     // 保存用户 token
     setToken(state, action) {
       state.token = action.payload
+      // 用户 token 本地持久化
+      SET_TOKEN(action.payload)
     },
   },
 })
