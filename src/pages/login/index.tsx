@@ -1,10 +1,15 @@
-import { Button, Form, Input } from 'antd'
+import { Button, Form, Input, message } from 'antd'
 import {
   EyeInvisibleTwoTone,
   EyeTwoTone,
   LockOutlined,
   UserOutlined,
 } from '@ant-design/icons'
+import { useDispatch } from 'react-redux'
+import { fetchLogin } from '@/store/modules/user.tsx'
+import { useNavigate } from 'react-router-dom'
+
+import store from '@/store'
 
 // 引入样式
 import './index.scss'
@@ -18,9 +23,17 @@ type LoginFieldType = {
 }
 
 const Login = () => {
+  const dispatch = useDispatch<typeof store.dispatch>()
+  const navigate = useNavigate()
+
   // 用户登录
-  const login = (values: LoginFieldType) => {
-    console.log('Success:', values)
+  const login = async (values: LoginFieldType) => {
+    // 触发异步actions, 用户登录
+    await dispatch(fetchLogin(values))
+    // 页面跳转
+    navigate('/')
+    // 提供成功信息
+    message.success('登录成功')
   }
 
   return (

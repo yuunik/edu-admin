@@ -5,7 +5,7 @@ import axios from 'axios'
 import { message } from 'antd'
 
 const request = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_URL,
+  baseURL: import.meta.env.VITE_APP_BASE_API,
   timeout: 3000,
 })
 
@@ -18,7 +18,7 @@ request.interceptors.request.use((config) => {
 request.interceptors.response.use(
   (response) => {
     // 返回响应时, 拆除 axios 自己封装的一层
-    return response.data
+    return response
   },
   (error) => {
     // 处理网络错误
