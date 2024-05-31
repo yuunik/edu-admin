@@ -1,7 +1,7 @@
 // 用户信息相关的状态管理库
 import { createSlice } from '@reduxjs/toolkit'
 import type { Dispatch } from '@reduxjs/toolkit'
-import { login } from '@/api/login.tsx'
+import { login } from '@/apis/login.tsx'
 import { LoginParams } from '@/types/login.tsx'
 import { GET_TOKEN, SET_TOKEN } from '@/utils'
 

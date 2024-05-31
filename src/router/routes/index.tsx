@@ -13,16 +13,18 @@ import AuthRouter from '@/components/AuthRouer'
 // 路由表
 const routes = [
   {
-    path: '/',
+    path: '/home',
     element: (
       <AuthRouter>
         <Layout />
       </AuthRouter>
     ),
-  },
-  {
-    path: '/home',
-    element: <Home />,
+    children: [
+      {
+        path: '/home',
+        element: <Home />,
+      },
+    ],
   },
   {
     path: '/login',

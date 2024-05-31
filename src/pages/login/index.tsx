@@ -31,7 +31,7 @@ const Login = () => {
     // 触发异步actions, 用户登录
     await dispatch(fetchLogin(values))
     // 页面跳转
-    navigate('/')
+    navigate('/home')
     // 提供成功信息
     message.success('登录成功')
   }
