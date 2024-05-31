@@ -3,6 +3,7 @@
  */
 import axios from 'axios'
 import { message } from 'antd'
+import { GET_TOKEN } from '@/utils/token.tsx'
 
 const request = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
@@ -11,13 +12,18 @@ const request = axios.create({
 
 // 请求拦截器
 request.interceptors.request.use((config) => {
+  // 获取本地存储的 token
+  const token = GET_TOKEN()
+  if (token) {
+    // 往请求头中加入 token
+    config.headers.Authorization = `Bearer ${token}`
+  }
   return config
 })
 
 // 响应拦截器
 request.interceptors.response.use(
   (response) => {
-    // 返回响应时, 拆除 axios 自己封装的一层
     return response
   },
   (error) => {
