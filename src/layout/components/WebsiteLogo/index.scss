@@ -1,8 +1,10 @@
 .website-info {
   width: 100%;
   display: flex;
+  justify-content: space-around;
   align-items: center;
-  margin: 4px;
+  padding: 4px;
+  box-sizing: border-box;
 
   .logo {
     width: 35px;
@@ -14,6 +16,5 @@
     color: #fff;
     font-size: 25px;
     font-style: italic;
-    margin-left: 10px;
   }
 }
