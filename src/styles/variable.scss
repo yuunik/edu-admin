@@ -3,8 +3,12 @@
  */
 
 // 侧边菜单栏宽度
-$menu-width: 8%;
+$menu-width: 200px;
 // 侧边菜单栏折叠后的宽度
 $menu-fold-width: 50px;
 // 侧边菜单栏的背景色
 $menu-bg-color: #001529;
+
+// 基础字体样式
+$font-base-style: bold 48px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif;
+

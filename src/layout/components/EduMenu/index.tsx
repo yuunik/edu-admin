@@ -6,6 +6,9 @@ import { Menu } from 'antd'
 import type { MenuProps } from 'antd'
 import routes from '@/router/routes'
 
+// 引入样式
+import './index.scss'
+
 // 路由类型
 type RouteType = {
   index?: boolean
