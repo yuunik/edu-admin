@@ -65,7 +65,7 @@ const getMenuItemList = (routes: RouteType[]) => {
 
 const EduMenu = () => {
   // 当前选中的菜单项 key 数组
-  const [current] = useState('/home')
+  const [current, setCurrent] = useState('/home')
 
   // 菜单数据
   const [menuItemList] = useState<MenuItem[]>(getMenuItemList(routes))
@@ -74,7 +74,7 @@ const EduMenu = () => {
   const navigate = useNavigate()
 
   // 菜单点击事件
-  const onClick = ({ key }: { key: string }) => {
+  const onMenuClick = ({ key }: { key: string }) => {
     // 二级路由跳转
     navigate(key)
   }
@@ -82,11 +82,10 @@ const EduMenu = () => {
   return (
     <Menu
       theme="dark"
-      onClick={onClick}
+      onClick={onMenuClick}
       style={{ width: '100%' }}
       mode="inline"
       defaultSelectedKeys={['/home']}
-      selectedKeys={[current]}
       items={menuItemList}
     />
   )
