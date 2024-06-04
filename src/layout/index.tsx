@@ -1,18 +1,22 @@
 import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 
-import { getUserInfo } from '@/apis/login'
 import EduMenu from './components/EduMenu'
 import WebsiteLogo from '@/layout/components/WebsiteLogo'
-
+import { useDispatch } from 'react-redux'
+import { fetchInfo } from '@/store/modules/user.tsx'
 // 引入样式
 import './index.scss'
+import store from '@/store'
 
 const Layout = () => {
+  // 获取触发对象
+  const dispatch = useDispatch<typeof store.dispatch>()
+
   // 组件挂载后获取用户信息
   useEffect(() => {
-    getUserInfo()
-  }, [])
+    dispatch(fetchInfo())
+  }, [dispatch])
 
   return (
     <div className="layout-container">

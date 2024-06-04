@@ -1,6 +1,6 @@
 import { request } from '@/utils'
 import type { ResType } from '@/types/common.tsx'
-import type { LoginParams, LoginRes } from '@/types/login.tsx'
+import type { LoginParams, LoginRes, UserInfo } from '@/types/login.tsx'
 
 // 请求地址管理
 enum LoginAPI {
@@ -20,7 +20,7 @@ export const login = (data: LoginParams) =>
 
 // 获取用户信息
 export const getUserInfo = () =>
-  request({
+  request<ResType<UserInfo>>({
     url: LoginAPI.GET_USER_INFO,
     method: 'GET',
   })

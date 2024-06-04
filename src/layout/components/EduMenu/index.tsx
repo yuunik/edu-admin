@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { ReactElement } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu } from 'antd'
 
 import type { MenuProps } from 'antd'
@@ -64,8 +64,14 @@ const getMenuItemList = (routes: RouteType[]) => {
 }
 
 const EduMenu = () => {
+  // 获取路径对象
+  const location = useLocation()
+
   // 当前选中的菜单项 key 数组
-  const [current, setCurrent] = useState('/home')
+  const [current] = useState(location.pathname)
+
+  // 当前展开项
+  // const [openKeys, setOpenKeys] = useState<string[]>([])
 
   // 菜单数据
   const [menuItemList] = useState<MenuItem[]>(getMenuItemList(routes))
@@ -79,13 +85,19 @@ const EduMenu = () => {
     navigate(key)
   }
 
+  // subMenu 展开/关闭的回调
+  // const onMenuOpenChange = (currentOpenKeys: string[]) => {
+  //   // 展开项更新
+  //   setOpenKeys(currentOpenKeys)
+  // }
+
   return (
     <Menu
       theme="dark"
       onClick={onMenuClick}
       style={{ width: '100%' }}
       mode="inline"
-      defaultSelectedKeys={['/home']}
+      selectedKeys={[current]}
       items={menuItemList}
     />
   )

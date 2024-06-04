@@ -81,7 +81,7 @@ const routes: RouteType[] = [
     },
   },
   {
-    path: '/:pathMatch*',
+    path: '/:pathMatch/*',
     element: <Any />,
     meta: {
       visible: false,
