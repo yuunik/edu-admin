@@ -1,25 +1,57 @@
-import { Avatar, Button, Dropdown, MenuProps, Space } from 'antd'
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  MenuProps,
+  message,
+  Popconfirm,
+  Space,
+} from 'antd'
 import {
   DownOutlined,
   FullscreenOutlined,
   ReloadOutlined,
   SettingOutlined,
 } from '@ant-design/icons'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import store from '@/store'
+import './index.scss'
+import { clearInfo } from '@/store/modules/user.tsx'
+import { useNavigate } from 'react-router-dom'
+import { UserInfo } from '@/types/login.tsx'
 
 const Settings = () => {
   // 获取状态管理库的用户信息
   const { name, avatar } = useSelector(
-    (state: ReturnType<typeof store.getState>) => state.user.userInfo,
+    (state: ReturnType<typeof store.getState>) =>
+      state.user.userInfo as UserInfo,
   )
 
+  // 获取触发器
+  const dispatch = useDispatch()
+
+  // 获取导航对象
+  const navigate = useNavigate()
+
+  // 退出登录事件
+  const onLogout = async () => {
+    // 清除用户信息
+    dispatch(clearInfo())
+    // 提示信息
+    message.success('退出登录成功')
+    // 跳转至登录页
+    navigate('/login')
+  }
   // 用户信息数据
   const userInfoItems: MenuProps['items'] = [
     {
       key: 'logout',
       danger: true,
-      label: '退出登录',
+      label: (
+        <Popconfirm title="确认退出登录吗？" onConfirm={onLogout}>
+          <em>退出登录</em>
+        </Popconfirm>
+      ),
     },
   ]
 
