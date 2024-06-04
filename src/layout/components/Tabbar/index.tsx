@@ -1,43 +1,15 @@
 import {
   DownOutlined,
   FullscreenOutlined,
-  HomeOutlined,
-  MenuFoldOutlined,
   ReloadOutlined,
   SettingOutlined,
-  UserOutlined,
 } from '@ant-design/icons'
-import { Avatar, Breadcrumb, Button, Dropdown, MenuProps, Space } from 'antd'
+import { Avatar, Button, Dropdown, MenuProps, Space } from 'antd'
+import TabbarBreadcrumb from './components/TabbarBreadcrumb'
 import UserAvatar from '@/assets/images/user-avatar.jpg'
 import './index.scss'
 
 const Tabbar = () => {
-  // 面包屑导航栏数据
-  const breadcrumbItems = [
-    {
-      href: '/home',
-      title: <HomeOutlined />,
-    },
-    {
-      href: '/teacher/list',
-      title: (
-        <>
-          <UserOutlined />
-          <span>讲师模块</span>
-        </>
-      ),
-    },
-    {
-      href: '/teacher/list',
-      title: (
-        <>
-          <UserOutlined />
-          <span>讲师列表</span>
-        </>
-      ),
-    },
-  ]
-
   // 用户信息数据
   const userInfoItems: MenuProps['items'] = [
     {
@@ -50,12 +22,7 @@ const Tabbar = () => {
   return (
     <nav className="tar-bar">
       {/* 面包屑导航栏 */}
-      <div className="breadcrumb-container">
-        {/* 菜单栏折叠按钮 */}
-        <MenuFoldOutlined />
-        {/* 面包屑 */}
-        <Breadcrumb items={breadcrumbItems} className="website-breadcrumb" />
-      </div>
+      <TabbarBreadcrumb />
       {/* 基础设置栏 */}
       <div className="base-setting-container">
         {/* 刷新按钮 */}

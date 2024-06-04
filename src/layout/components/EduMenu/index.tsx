@@ -2,7 +2,6 @@ import { useState } from 'react'
 import type { ReactElement } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu } from 'antd'
-
 import type { MenuProps } from 'antd'
 import routes from '@/router/routes'
 
