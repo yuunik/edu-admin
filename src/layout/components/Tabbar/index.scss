@@ -1,0 +1,43 @@
+.tar-bar {
+  height: 50px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+  padding: 20px;
+  box-sizing: border-box;
+
+  .breadcrumb-container {
+    display: flex;
+    align-items: center;
+
+    .website-breadcrumb {
+      margin-left: 10px;
+      color: black;
+    }
+  }
+
+  .base-setting-container {
+    display: flex;
+    align-items: center;
+
+    button {
+      margin-right: 10px;
+    }
+
+    .user-info-container {
+      .avatar {
+        margin-right: 10px;
+        border: 1px solid rgb(217, 217, 217);
+        cursor: pointer;
+        transition: 0.2s all linear;
+
+        &:hover {
+          border: 1px solid #1677FF;
+        }
+
+      }
+    }
+  }
+}
