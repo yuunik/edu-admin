@@ -1,11 +1,10 @@
 import { GET_TOKEN } from '@/utils'
 import { Navigate } from 'react-router-dom'
-import { ReactNode } from 'react'
 import { message } from 'antd'
 
 // 前置路由守卫
 interface Prop {
-  children: ReactNode
+  children: React.ReactNode
 }
 
 const AuthRouter: React.FC<Prop> = ({ children }) => {

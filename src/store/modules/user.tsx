@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { Dispatch } from '@reduxjs/toolkit'
 import { getUserInfo, login } from '@/apis/login.tsx'
-import { LoginParams } from '@/types/login.tsx'
+import type { LoginParams, UserInfo } from '@/types/login.tsx'
 import { GET_TOKEN, SET_TOKEN } from '@/utils'
 
 const userStore = createSlice({
@@ -11,7 +11,7 @@ const userStore = createSlice({
     // 用户 token
     token: GET_TOKEN() || '',
     // 用户信息
-    userInfo: {},
+    userInfo: {} as UserInfo,
   },
   reducers: {
     // 保存用户 token
