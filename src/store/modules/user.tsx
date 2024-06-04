@@ -23,7 +23,6 @@ const userStore = createSlice({
     // 保存用户信息
     setUserInfo(state, action) {
       state.userInfo = action.payload
-      console.log('-------- setUserInfo ----------', action)
     },
   },
 })

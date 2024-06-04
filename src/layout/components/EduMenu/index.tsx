@@ -68,10 +68,17 @@ const EduMenu = () => {
   const location = useLocation()
 
   // 当前选中的菜单项 key 数组
-  const [current] = useState(location.pathname)
+  const [current, setCurrent] = useState<string>(location.pathname)
 
+  // 当前展开项 key 数组
+  let currentOpenKeys: string[] = []
+  if (current.indexOf('/') === current.lastIndexOf('/')) {
+    currentOpenKeys.push(current)
+  } else {
+    currentOpenKeys = [current.substring(0, current.lastIndexOf('/')), current]
+  }
   // 当前展开项
-  // const [openKeys, setOpenKeys] = useState<string[]>([])
+  const [openKeys] = useState<string[]>(currentOpenKeys)
 
   // 菜单数据
   const [menuItemList] = useState<MenuItem[]>(getMenuItemList(routes))
@@ -81,15 +88,11 @@ const EduMenu = () => {
 
   // 菜单点击事件
   const onMenuClick = ({ key }: { key: string }) => {
+    // 记录当前选中项
+    setCurrent(key)
     // 二级路由跳转
     navigate(key)
   }
-
-  // subMenu 展开/关闭的回调
-  // const onMenuOpenChange = (currentOpenKeys: string[]) => {
-  //   // 展开项更新
-  //   setOpenKeys(currentOpenKeys)
-  // }
 
   return (
     <Menu
@@ -97,6 +100,7 @@ const EduMenu = () => {
       onClick={onMenuClick}
       style={{ width: '100%' }}
       mode="inline"
+      defaultOpenKeys={openKeys}
       selectedKeys={[current]}
       items={menuItemList}
     />
