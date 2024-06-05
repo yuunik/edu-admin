@@ -1,5 +1,5 @@
 import { MenuFoldOutlined } from '@ant-design/icons'
-import { Breadcrumb } from 'antd'
+import { Breadcrumb, Tooltip } from 'antd'
 import { useLocation, useMatches } from 'react-router-dom'
 import routes from '@/router/routes'
 import './index.scss'
@@ -64,7 +64,9 @@ const TabbarBreadcrumb = () => {
   return (
     <div className="breadcrumb-container">
       {/* 菜单栏折叠按钮 */}
-      <MenuFoldOutlined />
+      <Tooltip title="折叠菜单栏">
+        <MenuFoldOutlined style={{ cursor: 'pointer' }} />
+      </Tooltip>
       {/* 面包屑 */}
       <Breadcrumb items={breadcrumbItems} className="website-breadcrumb" />
     </div>

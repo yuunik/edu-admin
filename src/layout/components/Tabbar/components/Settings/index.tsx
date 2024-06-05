@@ -6,6 +6,7 @@ import {
   message,
   Popconfirm,
   Space,
+  Tooltip,
 } from 'antd'
 import {
   DownOutlined,
@@ -58,26 +59,33 @@ const Settings = () => {
   return (
     <div className="base-setting-container">
       {/* 刷新按钮 */}
-      <Button
-        type="default"
-        shape="circle"
-        icon={<ReloadOutlined />}
-        size="small"
-      />
+      <Tooltip title="刷新页面">
+        <Button
+          type="default"
+          shape="circle"
+          icon={<ReloadOutlined />}
+          size="small"
+        />
+      </Tooltip>
       {/* 全屏按钮 */}
-      <Button
-        type="default"
-        shape="circle"
-        icon={<FullscreenOutlined />}
-        size="small"
-      />
+      <Tooltip title="全屏显示">
+        <Button
+          type="default"
+          shape="circle"
+          icon={<FullscreenOutlined />}
+          size="small"
+        />
+      </Tooltip>
       {/* 其他设置按钮 */}
-      <Button
-        type="default"
-        shape="circle"
-        size="small"
-        icon={<SettingOutlined />}
-      />
+      <Tooltip title="设置">
+        <Button
+          type="default"
+          shape="circle"
+          size="small"
+          icon={<SettingOutlined />}
+        />
+      </Tooltip>
+
       {/* 用户信息栏 */}
       <div className="user-info-container">
         {/* 用户头像 */}
