@@ -1,4 +1,5 @@
-.teacher-list-container {
+// 公用样式
+@mixin common-style {
   border: 1px solid rgb(227, 227, 227);
   border-radius: 5px;
   transition: $base-transition;
@@ -6,5 +7,17 @@
   &:hover {
     box-shadow: 0 0 2px black;
   }
-
 }
+
+.teacher-list-container {
+  .teacher-query {
+    @include  common-style;
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+
+  .teacher-list {
+    @include common-style;
+  }
+}
+
