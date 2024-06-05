@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Teacher } from '@/types/teacher.tsx'
+import { Button, Table, Tag } from 'antd'
+import {
+  DeleteOutlined,
+  EditOutlined,
+  RobotOutlined,
+  TrophyOutlined,
+} from '@ant-design/icons'
 import { getTeacherListByConditionAPI } from '@/apis/teacher.tsx'
+import { Teacher } from '@/types/teacher.tsx'
 import './index.scss'
-import { Button, Table } from 'antd'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 
 const List = () => {
   // 讲师列表
@@ -31,8 +36,8 @@ const List = () => {
     getTeacherList()
   }, [])
 
+  // 获取表格列
   const { Column } = Table
-
   return (
     <div className="teacher-list-container">
       <Table dataSource={teacherList} bordered>
@@ -42,9 +47,26 @@ const List = () => {
           align="center"
           render={(_, __, index) => index + 1}
         />
-        <Column title="讲师姓名" dataIndex="name" key="name" align="center" />
-        <Column title="头衔" dataIndex="intro" key="intro" align="center" />
+        <Column title="姓名" dataIndex="name" key="name" align="center" />
+        <Column title="简介" dataIndex="intro" key="intro" align="center" />
         <Column title="资历" dataIndex="career" key="career" align="center" />
+        <Column
+          title="头衔"
+          key="level"
+          align="center"
+          render={(_, { level }: Teacher) => (
+            <div className="level-container">
+              <Tag
+                color={level === 1 ? 'success' : 'processing'}
+                icon={level === 1 ? <RobotOutlined /> : <TrophyOutlined />}
+                className="level-tag"
+              />
+              <em className="level-text">
+                {level === 1 ? '一级讲师' : '二级讲师'}
+              </em>
+            </div>
+          )}
+        />
         <Column
           title="添加时间"
           dataIndex="gmtCreate"

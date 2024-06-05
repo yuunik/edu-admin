@@ -34,6 +34,8 @@ export type Teacher = {
   intro: string
   /* 讲师资历 */
   career: string
+  /* 讲师头衔 */
+  level: number
   /* 讲师头像 */
   avatar: string
   /* 排序 */
