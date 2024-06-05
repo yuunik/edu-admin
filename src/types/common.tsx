@@ -19,3 +19,13 @@ export type PageRes<T> = {
   /* 返回数据 */
   records: T
 }
+
+// 分页数据类型
+export type PageParams = {
+  /* 当前页 */
+  current: number
+  /* 每页条数 */
+  pageSize: number
+  /* 总条数*/
+  total?: number
+}

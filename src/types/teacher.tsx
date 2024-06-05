@@ -7,7 +7,7 @@ export type TeacherParams = {
   /* 当前页 */
   current: number
   /* 每页条数 */
-  limit: number
+  pageSize: number
   /* 讲师查询条件 */
   teacherQuery?: TeacherQuery
 }

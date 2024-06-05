@@ -17,11 +17,11 @@ enum TeacherApi {
 // 分页查询讲师列表
 export const getTeacherListByConditionAPI = ({
   current,
-  limit,
+  pageSize,
   teacherQuery,
 }: TeacherParams) =>
   request<ResType<PageRes<Teacher[]>>>({
-    url: TeacherApi.GET_TEACHER_LIST + `${current}/${limit}`,
+    url: TeacherApi.GET_TEACHER_LIST + `${current}/${pageSize}`,
     method: 'POST',
     // data 会以 json 格式传输数据
     data: teacherQuery,
