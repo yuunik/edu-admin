@@ -1,5 +1,7 @@
+import './index.scss'
+
 const Home = () => {
-  return <div className="home">我是 home 页</div>
+  return <div className="home"></div>
 }
 
 export default Home
