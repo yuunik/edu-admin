@@ -11,7 +11,7 @@ enum LoginAPI {
 }
 
 // 用户登录
-export const login = (data: LoginParams) =>
+export const loginAPI = (data: LoginParams) =>
   request<ResType<LoginRes>>({
     url: LoginAPI.LOGIN,
     method: 'POST',
@@ -19,7 +19,7 @@ export const login = (data: LoginParams) =>
   })
 
 // 获取用户信息
-export const getUserInfo = () =>
+export const getUserInfoAPI = () =>
   request<ResType<UserInfo>>({
     url: LoginAPI.GET_USER_INFO,
     method: 'GET',

@@ -11,3 +11,11 @@ export type ResType<T> = {
   // 返回的数据
   data: T
 }
+
+// 分页查询返回数据类型
+export type PageRes<T> = {
+  /* 查询总条数 */
+  total: number
+  /* 返回数据 */
+  records: T
+}

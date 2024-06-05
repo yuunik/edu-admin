@@ -1,7 +1,7 @@
 // 用户信息相关的状态管理库
 import { createSlice } from '@reduxjs/toolkit'
 import type { Dispatch } from '@reduxjs/toolkit'
-import { getUserInfo, login } from '@/apis/login.tsx'
+import { getUserInfoAPI, loginAPI } from '@/apis/loginAPI.tsx'
 import type { LoginParams, UserInfo } from '@/types/login.tsx'
 import { GET_TOKEN, REMOVE_TOKEN, SET_TOKEN } from '@/utils'
 
@@ -43,7 +43,7 @@ const { setToken, setUserInfo, clearInfo } = userStore.actions
  */
 const fetchLogin = (data: LoginParams) => {
   return async (dispatch: Dispatch) => {
-    const result = await login(data)
+    const result = await loginAPI(data)
     if (result.data.code === 20000) {
       // 触发 actions
       dispatch(setToken(result.data.data.token))
@@ -56,7 +56,7 @@ const fetchInfo = () => {
   return async (dispatch: Dispatch) => {
     const {
       data: { code, data },
-    } = await getUserInfo()
+    } = await getUserInfoAPI()
     if (code === 20000) {
       // 触发 actions
       dispatch(setUserInfo(data))

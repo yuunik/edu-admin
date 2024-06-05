@@ -1,0 +1,9 @@
+.teacher-list-container {
+  border: 1px solid rgb(227, 227, 227);
+  border-radius: 5px;
+  transition: $base-transition;
+
+  &:hover {
+    box-shadow: 0 0 2px black;
+  }
+}
