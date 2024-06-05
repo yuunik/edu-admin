@@ -55,16 +55,15 @@ const List = () => {
           key="level"
           align="center"
           render={(_, { level }: Teacher) => (
-            <div className="level-container">
-              <Tag
-                color={level === 1 ? 'success' : 'processing'}
-                icon={level === 1 ? <RobotOutlined /> : <TrophyOutlined />}
-                className="level-tag"
-              />
+            <Tag
+              color={level === 1 ? 'success' : 'processing'}
+              icon={level === 1 ? <RobotOutlined /> : <TrophyOutlined />}
+              className="level-tag"
+            >
               <em className="level-text">
-                {level === 1 ? '一级讲师' : '二级讲师'}
+                {level === 1 ? '一级讲师' : '首席讲师'}
               </em>
-            </div>
+            </Tag>
           )}
         />
         <Column
