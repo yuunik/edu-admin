@@ -94,7 +94,7 @@ const Settings = () => {
         <Dropdown menu={{ items: userInfoItems }}>
           <Space>
             {name}
-            <DownOutlined />
+            <DownOutlined style={{ fontSize: 10 }} />
           </Space>
         </Dropdown>
       </div>
