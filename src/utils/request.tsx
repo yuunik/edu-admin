@@ -24,13 +24,14 @@ request.interceptors.request.use((config) => {
 
 // 响应拦截器
 request.interceptors.response.use(
-  (response) => {
+  async (response) => {
     const { code, message: msg } = response.data as ResType<
       typeof response.data.data
     >
+    console.log('--------------------------', msg)
     if (code !== 20000) {
       // 处理请求错误情况
-      message.error(msg)
+      await message.error(msg)
       // 跳转至错误页面
       window.location.href = '/error'
       return Promise.reject(new Error(msg))

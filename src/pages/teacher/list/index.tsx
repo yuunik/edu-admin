@@ -146,7 +146,7 @@ const List = () => {
     } = await deleteTeacherByIdAPI(deleteTeacherId)
     if (code === 20000) {
       // 提示信息
-      message.success('删除成功')
+      message.success('删除讲师成功')
       // 重新渲染页面
       pageTeacherListByCondition()
     }

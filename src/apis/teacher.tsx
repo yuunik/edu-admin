@@ -16,6 +16,8 @@ enum TeacherApi {
   PAGE_TEACHER_LIST_BY_CONDITION = `${base_url}/pageTeacherListByCondition/`,
   // 根据讲师 id 删除讲师
   DELETE_TEACHER_BY_ID = `${base_url}/deleteTeacherById/`,
+  // 新增讲师
+  ADD_TEACHER = `${base_url}/addTeacher`,
 }
 
 // 分页查询讲师列表
@@ -43,4 +45,12 @@ export const deleteTeacherByIdAPI = (teacherId: string) =>
   request<ResType<object>>({
     url: TeacherApi.DELETE_TEACHER_BY_ID + `${teacherId}`,
     method: 'DELETE',
+  })
+
+// 新增讲师
+export const addTeacherAPI = (data: Teacher) =>
+  request<ResType<object>>({
+    url: TeacherApi.ADD_TEACHER,
+    method: 'POST',
+    data,
   })
