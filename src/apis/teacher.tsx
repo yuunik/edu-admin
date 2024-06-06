@@ -3,7 +3,7 @@
  */
 import { request } from '@/utils'
 import type { PageRes, ResType } from '@/types/common.tsx'
-import type { Teacher, TeacherParams } from '@/types/teacher.tsx'
+import type { InfoType, Teacher, TeacherParams } from '@/types/teacher.tsx'
 
 // 讲师模块基础地址
 const base_url = '/eduservice/teacher'
@@ -18,6 +18,8 @@ enum TeacherApi {
   DELETE_TEACHER_BY_ID = `${base_url}/deleteTeacherById/`,
   // 新增讲师
   ADD_TEACHER = `${base_url}/addTeacher`,
+  // 获取讲师详情
+  GET_TEACHER_INFO = `${base_url}/getTeacherInfoById/`,
 }
 
 // 分页查询讲师列表
@@ -53,4 +55,11 @@ export const addTeacherAPI = (data: Teacher) =>
     url: TeacherApi.ADD_TEACHER,
     method: 'POST',
     data,
+  })
+
+// 获取讲师详情
+export const getTeacherInfoByIdAPI = (teacherId: string) =>
+  request<ResType<InfoType>>({
+    url: TeacherApi.GET_TEACHER_INFO + `${teacherId}`,
+    method: 'GET',
   })

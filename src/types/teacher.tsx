@@ -47,3 +47,9 @@ export type Teacher = {
   /* 更新时间 */
   gmtModified: string
 }
+
+// 获取讲师详情接口返回的数据类型
+export type InfoType = {
+  /* 讲师信息 */
+  eduTeacher: Teacher
+}
