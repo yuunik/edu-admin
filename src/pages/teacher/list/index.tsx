@@ -254,7 +254,7 @@ const List = () => {
           title="操作"
           dataIndex="operations"
           render={(_, { id }: Teacher) => (
-            <>
+            <div className="btn-group">
               <Button
                 type="primary"
                 icon={<EditOutlined />}
@@ -271,7 +271,7 @@ const List = () => {
               >
                 删除
               </Button>
-            </>
+            </div>
           )}
           align="center"
         />

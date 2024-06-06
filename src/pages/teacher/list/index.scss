@@ -7,6 +7,19 @@
 
   .teacher-list {
     @include box-base-style;
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+
+      button {
+        margin: 0 10px 10px 0;
+
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
   }
 }
 
