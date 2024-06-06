@@ -6,7 +6,7 @@ import {
   getTeacherInfoByIdAPI,
   updateTeacherInfoAPI,
 } from '@/apis/teacher.tsx'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 
 const Save = () => {
@@ -56,13 +56,14 @@ const Save = () => {
   }
 
   // 获取路径中的 id 参数
-  const [search] = useSearchParams()
-  const id = search.get('id')
-
+  const params = useParams()
+  const id = params.id
   // 组件挂载后, 若有 id 则回显数据
   useEffect(() => {
     // 若有 id 则回显数据
-    id && getTeacherInfo(id)
+    if (id) {
+      getTeacherInfo(id)
+    }
   }, [id, form])
 
   // 编辑讲师

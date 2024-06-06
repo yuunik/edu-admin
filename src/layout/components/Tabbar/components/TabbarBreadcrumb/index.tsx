@@ -1,13 +1,17 @@
 import { MenuFoldOutlined } from '@ant-design/icons'
 import { Breadcrumb, Tooltip } from 'antd'
-import { useLocation, useMatches } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import routes from '@/router/routes'
-import './index.scss'
+import { useState } from 'react'
 import { RouteType } from '@/types/common.tsx'
+import useRouteInfo from '@/hooks/useRouteInfo.tsx'
+import './index.scss'
 
 const TabbarBreadcrumb = () => {
   // 获取当前路径的相关信息
   const location = useLocation()
+  const [pathname] = useState(location.pathname)
+  const { id } = useRouteInfo('/teacher/edit/:id')
 
   // 面包屑导航栏数据类型
   type breadcrumbItemType = {
@@ -15,14 +19,22 @@ const TabbarBreadcrumb = () => {
     title: React.ReactNode
   }
 
+  let firstPath
+  // 检查当前路由是否为首页
+  if (pathname === '/home') {
+    firstPath = pathname
+  } else {
+    firstPath = pathname.substring(0, pathname.indexOf('/', 1))
+  }
+
   // 面包屑导航栏数据
   const breadcrumbItems: breadcrumbItemType[] = []
   // 获取当前路径匹配到的路由数组
-  const matchedPathList = useMatches().map((match) => match.pathname)
+  // const matchedPathList = [firstPath, pathname]
   // 获取父路径匹配到的路由信息
-  const result = routes.find((route) => route.path === matchedPathList[0])
+  const result = routes.find((route) => route.path === firstPath)
   // 判断是否为首页页面
-  if (location.pathname.indexOf('/') === location.pathname.lastIndexOf('/')) {
+  if (pathname.indexOf('/') === pathname.lastIndexOf('/')) {
     // 首页
     breadcrumbItems.push({
       href: result?.children![0].path as string,
@@ -45,9 +57,15 @@ const TabbarBreadcrumb = () => {
         </>
       ),
     })
+    // 处理二级路由
+    let pathData = pathname
+    // 若 / 出现三次, 截取至第二个 /, 并拼接 '/:id'
+    if (id) {
+      pathData = pathname.substring(0, pathname.lastIndexOf('/')) + '/:id'
+    }
     // 获取二级路由
     const childResult = (result?.children as RouteType[])?.find(
-      (childRoute) => childRoute.path === matchedPathList[1],
+      (childRoute) => childRoute.path === pathData,
     )
     if (childResult) {
       breadcrumbItems.push({

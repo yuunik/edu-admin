@@ -259,7 +259,7 @@ const List = () => {
                 type="primary"
                 icon={<EditOutlined />}
                 style={{ marginRight: 10 }}
-                onClick={() => navigate(`/teacher/save?id=${id}`)}
+                onClick={() => navigate(`/teacher/edit/${id}`)}
               >
                 修改
               </Button>

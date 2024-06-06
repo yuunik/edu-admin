@@ -5,7 +5,7 @@ import { Menu } from 'antd'
 import type { MenuProps } from 'antd'
 import routes from '@/router/routes'
 import type { RouteType } from '@/types/common'
-
+import useRouteInfo from '@/hooks/useRouteInfo.tsx'
 // 引入样式
 import './index.scss'
 
@@ -51,6 +51,8 @@ const getMenuItemList = (routes: RouteType[]) => {
 const EduMenu = () => {
   // 获取路径对象
   const location = useLocation()
+  const { id, routeLevel } = useRouteInfo('/teacher/list')
+  console.log('当前路由层级为 ---', routeLevel)
 
   // 当前选中的菜单项 key 数组
   const [current, setCurrent] = useState<string>(location.pathname)
@@ -82,8 +84,13 @@ const EduMenu = () => {
   }
 
   useEffect(() => {
+    if (!id) {
+      setCurrent(location.pathname)
+    } else {
+      setCurrent('/teacher/list')
+    }
     // 监听路由变化, 更新当前选中项
-    setCurrent(location.pathname)
+    //setCurrent(location.pathname)
   }, [location.pathname])
 
   return (
