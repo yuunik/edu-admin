@@ -27,10 +27,14 @@ import { PageParams } from '@/types/common.tsx'
 import './index.scss'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
+import { useNavigate } from 'react-router-dom'
 
 const List = () => {
   // dayjs 使用中文
   dayjs.locale('zh-cn')
+
+  // 获取路由跳转方法
+  const navigate = useNavigate()
 
   // 讲师列表
   const [teacherList, setTeacherList] = useState<Teacher[]>([])
@@ -255,6 +259,7 @@ const List = () => {
                 type="primary"
                 icon={<EditOutlined />}
                 style={{ marginRight: 10 }}
+                onClick={() => navigate(`/teacher/save?id=${id}`)}
               >
                 修改
               </Button>

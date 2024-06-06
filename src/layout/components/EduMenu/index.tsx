@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { ReactElement } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu } from 'antd'
@@ -92,6 +92,11 @@ const EduMenu = () => {
     // 二级路由跳转
     navigate(key)
   }
+
+  useEffect(() => {
+    // 监听路由变化, 更新当前选中项
+    setCurrent(location.pathname)
+  }, [location.pathname])
 
   return (
     <Menu

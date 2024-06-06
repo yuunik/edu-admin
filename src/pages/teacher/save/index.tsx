@@ -31,8 +31,6 @@ const Save = () => {
       message.success('新增讲师成功')
       // 路由跳转
       navigate('/teacher/list')
-      // 页面刷新
-      window.location.reload()
     }
   }
 
@@ -42,7 +40,7 @@ const Save = () => {
         <Input placeholder="请输入讲师名称" />
       </Item>
       <Item<Teacher> label="讲师排序" name="sort">
-        <InputNumber min={0} value={0} controls />
+        <InputNumber min={0} defaultValue={0} value={0} controls />
       </Item>
       <Item<Teacher> label="讲师头衔" name="level">
         <Select placeholder="请选择讲师头衔">
