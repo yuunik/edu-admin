@@ -1,6 +1,7 @@
-import { Navigate } from 'react-router-dom'
+import { Navigate, RouteObject } from 'react-router-dom'
 import {
   HomeOutlined,
+  SignatureOutlined,
   UnorderedListOutlined,
   UserAddOutlined,
   UserOutlined,
@@ -108,6 +109,15 @@ const routes: RouteType[] = [
           visible: true,
           label: '新增讲师',
           icon: <UserAddOutlined />,
+        },
+      },
+      {
+        path: '/teacher/edit/:id',
+        element: <Save />,
+        meta: {
+          visible: false,
+          label: '编辑讲师',
+          icon: <SignatureOutlined />,
         },
       },
     ],

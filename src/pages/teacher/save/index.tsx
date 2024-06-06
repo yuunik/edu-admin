@@ -1,7 +1,11 @@
 import { Button, Form, Input, InputNumber, message, Select } from 'antd'
 import './index.scss'
 import { Teacher } from '@/types/teacher.tsx'
-import { addTeacherAPI, getTeacherInfoByIdAPI } from '@/apis/teacher.tsx'
+import {
+  addTeacherAPI,
+  getTeacherInfoByIdAPI,
+  updateTeacherInfoAPI,
+} from '@/apis/teacher.tsx'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useEffect } from 'react'
 
@@ -14,8 +18,11 @@ const Save = () => {
 
   // 新增或修改讲师
   const onSaveOrUpdate = (formData: Teacher) => {
+    // 若有 id 数据, 则存入表单数据中
+    id && (formData.id = id)
     if (formData.id) {
       // 修改讲师
+      updateTeacherInfoById(formData)
     } else {
       // 新增讲师
       onAddTeacher(formData)
@@ -44,7 +51,7 @@ const Save = () => {
     } = await getTeacherInfoByIdAPI(teacherId)
     if (code === 20000) {
       // 回显数据
-      form.setFieldsValue(data.eduTeacher)
+      form.setFieldsValue(data.teacher)
     }
   }
 
@@ -58,6 +65,19 @@ const Save = () => {
     id && getTeacherInfo(id)
   }, [id, form])
 
+  // 编辑讲师
+  const updateTeacherInfoById = async (formData: Teacher) => {
+    const {
+      data: { code },
+    } = await updateTeacherInfoAPI(formData)
+    if (code === 20000) {
+      // 提示信息
+      message.success('修改讲师成功')
+      // 路由跳转
+      navigate('/teacher/list')
+    }
+  }
+
   return (
     <Form
       className="teacher-saveOrUpdate-container"
@@ -67,8 +87,8 @@ const Save = () => {
       <Item<Teacher> label="讲师名称" name="name">
         <Input placeholder="请输入讲师名称" />
       </Item>
-      <Item<Teacher> label="讲师排序" name="sort">
-        <InputNumber min={0} defaultValue={0} value={0} controls />
+      <Item<Teacher> label="讲师排序" name="sort" initialValue={0}>
+        <InputNumber min={0} controls />
       </Item>
       <Item<Teacher> label="讲师头衔" name="level">
         <Select placeholder="请选择讲师头衔">

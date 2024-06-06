@@ -28,7 +28,6 @@ request.interceptors.response.use(
     const { code, message: msg } = response.data as ResType<
       typeof response.data.data
     >
-    console.log('--------------------------', msg)
     if (code !== 20000) {
       // 处理请求错误情况
       await message.error(msg)

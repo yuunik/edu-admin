@@ -51,5 +51,5 @@ export type Teacher = {
 // 获取讲师详情接口返回的数据类型
 export type InfoType = {
   /* 讲师信息 */
-  eduTeacher: Teacher
+  teacher: Teacher
 }

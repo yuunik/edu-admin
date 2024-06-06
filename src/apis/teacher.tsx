@@ -20,6 +20,8 @@ enum TeacherApi {
   ADD_TEACHER = `${base_url}/addTeacher`,
   // 获取讲师详情
   GET_TEACHER_INFO = `${base_url}/getTeacherInfoById/`,
+  // 修改讲师信息
+  UPDATE_TEACHER_INFO = `${base_url}/updateTeacherInfoById`,
 }
 
 // 分页查询讲师列表
@@ -62,4 +64,12 @@ export const getTeacherInfoByIdAPI = (teacherId: string) =>
   request<ResType<InfoType>>({
     url: TeacherApi.GET_TEACHER_INFO + `${teacherId}`,
     method: 'GET',
+  })
+
+// 修改讲师信息
+export const updateTeacherInfoAPI = (data: Teacher) =>
+  request<ResType<object>>({
+    url: TeacherApi.UPDATE_TEACHER_INFO,
+    method: 'POST',
+    data,
   })
