@@ -1,4 +1,9 @@
-// 公共的数据类型
+/**
+ * @description公共的数据类型
+ */
+
+import type { RouteObject } from 'react-router'
+import type { ReactElement } from 'react'
 
 // 统一返回数据的类型
 export type ResType<T> = {
@@ -28,4 +33,18 @@ export type PageParams = {
   pageSize: number
   /* 总条数*/
   total?: number
+}
+
+// 路由类型
+// 路由类型
+export type RouteType = RouteObject & {
+  index?: boolean
+  path?: string
+  element: React.ReactNode
+  meta?: {
+    visible?: boolean
+    label?: string
+    icon?: ReactElement
+  }
+  children?: RouteType[]
 }

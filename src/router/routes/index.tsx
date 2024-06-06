@@ -1,4 +1,5 @@
-import { Navigate, RouteObject } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
+import type { RouteObject } from 'react-router'
 import {
   HomeOutlined,
   SignatureOutlined,
@@ -22,10 +23,10 @@ import Layout from '@/layout'
 import AuthRouter from '@/components/AuthRouer'
 
 // 路由类型
-type RouteType = {
+type RouteType = RouteObject & {
   index?: boolean
   path?: string
-  element: JSX.Element
+  element: React.ReactNode
   meta?: {
     visible?: boolean
     label?: string

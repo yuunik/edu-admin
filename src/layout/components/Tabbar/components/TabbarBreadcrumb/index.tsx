@@ -3,6 +3,7 @@ import { Breadcrumb, Tooltip } from 'antd'
 import { useLocation, useMatches } from 'react-router-dom'
 import routes from '@/router/routes'
 import './index.scss'
+import { RouteType } from '@/types/common.tsx'
 
 const TabbarBreadcrumb = () => {
   // 获取当前路径的相关信息
@@ -45,7 +46,7 @@ const TabbarBreadcrumb = () => {
       ),
     })
     // 获取二级路由
-    const childResult = result?.children?.find(
+    const childResult = (result?.children as RouteType[])?.find(
       (childRoute) => childRoute.path === matchedPathList[1],
     )
     if (childResult) {

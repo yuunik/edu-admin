@@ -4,22 +4,11 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu } from 'antd'
 import type { MenuProps } from 'antd'
 import routes from '@/router/routes'
+import type { RouteType } from '@/types/common'
 
 // 引入样式
 import './index.scss'
 
-// 路由类型
-type RouteType = {
-  index?: boolean
-  path?: string
-  element: JSX.Element
-  meta?: {
-    visible?: boolean
-    label?: string
-    icon?: ReactElement
-  }
-  children?: RouteType[]
-}
 // antD 菜单子元素类型
 type MenuItem = Required<MenuProps>['items'][number]
 // 菜单数据类型
@@ -29,9 +18,6 @@ type MenuItemType = {
   icon?: ReactElement
   children?: MenuItemType[]
 }
-
-// 菜单数据列表
-// const menuItemList: MenuItem[] = []
 
 // 获取菜单数据列表
 const getMenuItemList = (routes: RouteType[]) => {
@@ -80,7 +66,9 @@ const EduMenu = () => {
   const [openKeys] = useState<string[]>(currentOpenKeys)
 
   // 菜单数据
-  const [menuItemList] = useState<MenuItem[]>(getMenuItemList(routes))
+  const [menuItemList] = useState<MenuItem[]>(
+    getMenuItemList(routes as RouteType[]),
+  )
 
   // 导航对象
   const navigate = useNavigate()
