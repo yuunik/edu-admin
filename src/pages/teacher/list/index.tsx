@@ -1,5 +1,15 @@
 import { useEffect, useState } from 'react'
-import { Button, DatePicker, Form, Input, Select, Table, Tag } from 'antd'
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  message,
+  Modal,
+  Select,
+  Table,
+  Tag,
+} from 'antd'
 import {
   DeleteOutlined,
   EditOutlined,
@@ -8,7 +18,10 @@ import {
   SearchOutlined,
   TrophyOutlined,
 } from '@ant-design/icons'
-import { getTeacherListByConditionAPI } from '@/apis/teacher.tsx'
+import {
+  deleteTeacherByIdAPI,
+  getTeacherListByConditionAPI,
+} from '@/apis/teacher.tsx'
 import { Teacher, TeacherQuery } from '@/types/teacher.tsx'
 import { PageParams } from '@/types/common.tsx'
 import './index.scss'
@@ -111,6 +124,34 @@ const List = () => {
     })
   }
 
+  // 控制删除讲师确认框的显示
+  const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false)
+  // 删除讲师的 id
+  const [deleteTeacherId, setDeleteTeacherId] = useState<string>('')
+
+  // 删除讲师的回调
+  const onDelete = (teacherId: string) => {
+    setDeleteTeacherId(teacherId)
+    // 显示删除弹窗
+    setDeleteModalVisible(true)
+  }
+
+  // 确认删除讲师的回调
+  const onConfirmDelete = async () => {
+    // 隐藏删除弹窗
+    setDeleteModalVisible(false)
+    // 调用接口, 删除讲师信息
+    const {
+      data: { code },
+    } = await deleteTeacherByIdAPI(deleteTeacherId)
+    if (code === 20000) {
+      // 提示信息
+      message.success('删除成功')
+      // 重新渲染页面
+      pageTeacherListByCondition()
+    }
+  }
+
   return (
     <div className="teacher-list-container">
       {/* 讲师查询表单 */}
@@ -156,7 +197,7 @@ const List = () => {
       </Form>
       {/* 讲师列表 */}
       <Table
-        dataSource={teacherList}
+        dataSource={teacherList.map((item) => ({ ...item, key: item.id }))}
         bordered
         pagination={{
           current: pageData.current,
@@ -174,15 +215,17 @@ const List = () => {
         <Column
           title="序号"
           dataIndex="id"
+          key="id"
           align="center"
           render={(_, __, index) => index + 1}
         />
-        <Column title="姓名" dataIndex="name" align="center" />
-        <Column title="简介" dataIndex="intro" align="center" />
-        <Column title="资历" dataIndex="career" align="center" />
+        <Column title="姓名" dataIndex="name" key="name" align="center" />
+        <Column title="简介" dataIndex="intro" key="intro" align="center" />
+        <Column title="资历" dataIndex="career" key="career" align="center" />
         <Column
           title="头衔"
           dataIndex="level"
+          key="level"
           align="center"
           render={(_, { level }: Teacher) => (
             <Tag
@@ -196,12 +239,17 @@ const List = () => {
             </Tag>
           )}
         />
-        <Column title="添加时间" dataIndex="gmtCreate" align="center" />
+        <Column
+          title="添加时间"
+          dataIndex="gmtCreate"
+          key="gmtCreate"
+          align="center"
+        />
         <Column title="排序" dataIndex="sort" key="sort" align="center" />
         <Column
           title="操作"
           dataIndex="operations"
-          render={() => (
+          render={(_, { id }: Teacher) => (
             <>
               <Button
                 type="primary"
@@ -210,7 +258,12 @@ const List = () => {
               >
                 修改
               </Button>
-              <Button type="primary" danger icon={<DeleteOutlined />}>
+              <Button
+                type="primary"
+                danger
+                icon={<DeleteOutlined />}
+                onClick={() => onDelete(id)}
+              >
                 删除
               </Button>
             </>
@@ -218,6 +271,15 @@ const List = () => {
           align="center"
         />
       </Table>
+      {/* 删除讲师确认框 */}
+      <Modal
+        open={deleteModalVisible}
+        title="提示框"
+        onOk={onConfirmDelete}
+        onCancel={() => setDeleteModalVisible(false)}
+      >
+        <em>是否是否删除该讲师信息?</em>
+      </Modal>
     </div>
   )
 }
