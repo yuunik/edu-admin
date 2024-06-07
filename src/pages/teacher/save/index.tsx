@@ -58,8 +58,11 @@ const Save = () => {
   // 获取路径中的 id 参数
   const params = useParams()
   const id = params.id
+
   // 组件挂载后, 若有 id 则回显数据
   useEffect(() => {
+    // 清空表单数据
+    form.resetFields()
     // 若有 id 则回显数据
     if (id) {
       getTeacherInfo(id)

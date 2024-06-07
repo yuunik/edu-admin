@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import type { ReactElement } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Menu } from 'antd'
 import type { MenuProps } from 'antd'
 import routes from '@/router/routes'
 import type { RouteType } from '@/types/common'
-import useRouteInfo from '@/hooks/useRouteInfo.tsx'
 // 引入样式
 import './index.scss'
 
@@ -51,8 +50,7 @@ const getMenuItemList = (routes: RouteType[]) => {
 const EduMenu = () => {
   // 获取路径对象
   const location = useLocation()
-  const { id, routeLevel } = useRouteInfo('/teacher/list')
-  console.log('当前路由层级为 ---', routeLevel)
+  const { id } = useParams()
 
   // 当前选中的菜单项 key 数组
   const [current, setCurrent] = useState<string>(location.pathname)

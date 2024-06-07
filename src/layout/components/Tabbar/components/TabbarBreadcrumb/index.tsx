@@ -1,17 +1,16 @@
 import { MenuFoldOutlined } from '@ant-design/icons'
 import { Breadcrumb, Tooltip } from 'antd'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import routes from '@/router/routes'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RouteType } from '@/types/common.tsx'
-import useRouteInfo from '@/hooks/useRouteInfo.tsx'
 import './index.scss'
 
 const TabbarBreadcrumb = () => {
   // 获取当前路径的相关信息
   const location = useLocation()
-  const [pathname] = useState(location.pathname)
-  const { id } = useRouteInfo('/teacher/edit/:id')
+  const [pathname, setPathname] = useState(location.pathname)
+  const { id } = useParams()
 
   // 面包屑导航栏数据类型
   type breadcrumbItemType = {
@@ -79,6 +78,10 @@ const TabbarBreadcrumb = () => {
       })
     }
   }
+
+  useEffect(() => {
+    setPathname(location.pathname)
+  }, [location.pathname])
 
   return (
     <div className="breadcrumb-container">

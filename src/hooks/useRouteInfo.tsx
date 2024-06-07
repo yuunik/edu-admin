@@ -10,7 +10,7 @@ const useRouteInfo = (pathname: string) => {
   // 编辑模式
   let editMode = false
   // 当前路径对应的路由路径
-  const currentRoutePath = pathname
+  const currentRoutePath = pathname.substring(1)
 
   // 获取当前路径对应的路由层级
   const getCurrentRouteLevel = (routeList: typeof routes) => {
