@@ -1,13 +1,14 @@
 import { Button, Form, Input, InputNumber, message, Select } from 'antd'
-import './index.scss'
-import { Teacher } from '@/types/teacher.tsx'
+import { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import {
   addTeacherAPI,
   getTeacherInfoByIdAPI,
   updateTeacherInfoAPI,
 } from '@/apis/teacher.tsx'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useEffect } from 'react'
+import './index.scss'
+import { Teacher } from '@/types/teacher.tsx'
+import useRouteInfo from '@/hooks/useRouteInfo.tsx'
 
 const Save = () => {
   const { Item } = Form
@@ -15,11 +16,19 @@ const Save = () => {
   const { TextArea } = Input
   // 获取导航对象
   const navigate = useNavigate()
+  // 获取当前路径信息
+  const location = useLocation()
+  // 获取路由信息
+  /**
+   * paramValue: 路由参数值
+   * editMode: 是否为编辑模式
+   */
+  const { paramValue, editMode } = useRouteInfo(location.pathname)
 
   // 新增或修改讲师
   const onSaveOrUpdate = (formData: Teacher) => {
     // 若有 id 数据, 则存入表单数据中
-    id && (formData.id = id)
+    editMode && (formData.id = paramValue as string)
     if (formData.id) {
       // 修改讲师
       updateTeacherInfoById(formData)
@@ -55,19 +64,13 @@ const Save = () => {
     }
   }
 
-  // 获取路径中的 id 参数
-  const params = useParams()
-  const id = params.id
-
   // 组件挂载后, 若有 id 则回显数据
   useEffect(() => {
     // 清空表单数据
     form.resetFields()
     // 若有 id 则回显数据
-    if (id) {
-      getTeacherInfo(id)
-    }
-  }, [id, form])
+    editMode && getTeacherInfo(paramValue as string)
+  }, [editMode, form])
 
   // 编辑讲师
   const updateTeacherInfoById = async (formData: Teacher) => {

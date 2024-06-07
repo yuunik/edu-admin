@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import type { ReactElement } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu } from 'antd'
 import type { MenuProps } from 'antd'
 import routes from '@/router/routes'
 import type { RouteType } from '@/types/common'
+import useRouteInfo from '@/hooks/useRouteInfo.tsx'
 // 引入样式
 import './index.scss'
 
@@ -50,10 +51,11 @@ const getMenuItemList = (routes: RouteType[]) => {
 const EduMenu = () => {
   // 获取路径对象
   const location = useLocation()
-  const { id } = useParams()
+  // 获取当前路径匹配的路由信息
+  const { currentRoutePath, editMode } = useRouteInfo(location.pathname)
 
   // 当前选中的菜单项 key 数组
-  const [current, setCurrent] = useState<string>(location.pathname)
+  const [current, setCurrent] = useState<string>(currentRoutePath)
 
   // 当前展开项 key 数组
   let currentOpenKeys: string[] = []
@@ -61,7 +63,10 @@ const EduMenu = () => {
     currentOpenKeys.push(current)
   } else {
     currentOpenKeys = [current.substring(0, current.lastIndexOf('/')), current]
+    // 若为编辑模式, 默认展开讲师列表管理
+    editMode && (currentOpenKeys = ['/teacher', '/teacher/list'])
   }
+
   // 当前展开项
   const [openKeys] = useState<string[]>(currentOpenKeys)
 
@@ -82,13 +87,11 @@ const EduMenu = () => {
   }
 
   useEffect(() => {
-    if (!id) {
-      setCurrent(location.pathname)
+    if (!editMode) {
+      setCurrent(currentRoutePath)
     } else {
       setCurrent('/teacher/list')
     }
-    // 监听路由变化, 更新当前选中项
-    //setCurrent(location.pathname)
   }, [location.pathname])
 
   return (
