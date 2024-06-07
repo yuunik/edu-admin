@@ -40,7 +40,7 @@ const getMenuItemList = (routes: RouteType[]) => {
     } else if (route.children) {
       // 一级路由不可见, 仅二级路由可见(只有首页这一个情况)
       const childrenRoutes = getMenuItemList(route.children)
-      childrenRoutes[0].key = route.path as string
+      childrenRoutes[0].key = route.children[0].path as string
       filteredRoutes.push(childrenRoutes[0])
     }
   })
@@ -80,6 +80,7 @@ const EduMenu = () => {
 
   // 菜单点击事件
   const onMenuClick = ({ key }: { key: string }) => {
+    console.log(key, '---------------------------')
     // 记录当前选中项
     setCurrent(key)
     // 二级路由跳转

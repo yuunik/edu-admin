@@ -21,7 +21,7 @@ const TabbarBreadcrumb = () => {
   let firstPath
   // 检查当前路由是否为首页
   if (pathname === '/home') {
-    firstPath = pathname
+    firstPath = '/'
   } else {
     firstPath = pathname.substring(0, pathname.indexOf('/', 1))
   }

@@ -1,4 +1,3 @@
-import { Navigate } from 'react-router-dom'
 import type { RouteObject } from 'react-router'
 import {
   HomeOutlined,
@@ -39,13 +38,6 @@ type RouteType = RouteObject & {
 const routes: RouteType[] = [
   {
     path: '/',
-    element: <Navigate to="/home" />,
-    meta: {
-      visible: false,
-    },
-  },
-  {
-    path: '/home',
     element: (
       <AuthRouter>
         <Layout />
@@ -53,7 +45,7 @@ const routes: RouteType[] = [
     ),
     children: [
       {
-        index: true,
+        path: '/home',
         element: <Home />,
         meta: {
           visible: true,
