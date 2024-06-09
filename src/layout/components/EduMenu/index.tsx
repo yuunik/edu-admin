@@ -80,7 +80,6 @@ const EduMenu = () => {
 
   // 菜单点击事件
   const onMenuClick = ({ key }: { key: string }) => {
-    console.log(key, '---------------------------')
     // 记录当前选中项
     setCurrent(key)
     // 二级路由跳转

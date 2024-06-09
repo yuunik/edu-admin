@@ -1,6 +1,7 @@
 /**
  * 讲师模式相关类型定义
  */
+import { UploadFile } from 'antd'
 
 // 讲师列表请求参数类型
 export type TeacherParams = {
@@ -27,7 +28,7 @@ export type TeacherQuery = {
 // 讲师数据类型
 export type Teacher = {
   /* 讲师 id */
-  id: string
+  id?: string
   /* 讲师姓名 */
   name: string
   /* 讲师简介 */
@@ -37,19 +38,25 @@ export type Teacher = {
   /* 讲师头衔 */
   level: number
   /* 讲师头像 */
-  avatar: string
+  avatar?: string | UploadFile[]
   /* 排序 */
   sort: number
   /* 逻辑删除 */
-  isDeleted: boolean
+  isDeleted?: boolean
   /* 创建时间 */
-  gmtCreate: string
+  gmtCreate?: string
   /* 更新时间 */
-  gmtModified: string
+  gmtModified?: string
 }
 
 // 获取讲师详情接口返回的数据类型
 export type InfoType = {
   /* 讲师信息 */
   teacher: Teacher
+}
+
+// 上传头像返回的数据类型
+export type UploadAvatarType = {
+  /* 上传成功后的头像地址 */
+  url: string
 }
