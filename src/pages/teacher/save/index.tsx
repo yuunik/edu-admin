@@ -187,9 +187,9 @@ const Save = () => {
 
   return (
     <Form
-      className="teacher-saveOrUpdate-container"
       onFinish={onSaveOrUpdate}
       form={form}
+      className="teacher-saveOrUpdate-container"
     >
       <Item<Teacher> label="讲师名称" name="name">
         <Input placeholder="请输入讲师名称" />

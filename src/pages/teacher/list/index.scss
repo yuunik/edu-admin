@@ -5,8 +5,15 @@
     padding: 20px;
   }
 
+  .btn-group {
+    &>button:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
   .teacher-list {
     @include box-base-style;
+    margin-top: 20px;
 
     .btn-group {
       display: flex;

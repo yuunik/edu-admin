@@ -12,7 +12,9 @@ import {
 } from 'antd'
 import {
   DeleteOutlined,
+  DownOutlined,
   EditOutlined,
+  PlusOutlined,
   RedoOutlined,
   RobotOutlined,
   SearchOutlined,
@@ -156,6 +158,8 @@ const List = () => {
     }
   }
 
+  const onDownloadTemplate = () => {}
+
   return (
     <div className="teacher-list-container">
       {/* 讲师查询表单 */}
@@ -199,6 +203,21 @@ const List = () => {
           </Button>
         </Form.Item>
       </Form>
+      {/* 按钮组 */}
+      <div className="btn-group">
+        {/* 下载文件模板 */}
+        <Button
+          type="primary"
+          icon={<DownOutlined />}
+          onClick={onDownloadTemplate}
+        >
+          下载文件模板
+        </Button>
+        {/* 批量导入 */}
+        <Button type="default" danger icon={<PlusOutlined />}>
+          批量导入
+        </Button>
+      </div>
       {/* 讲师列表 */}
       <Table
         dataSource={teacherList.map((item) => ({ ...item, key: item.id }))}
@@ -267,7 +286,7 @@ const List = () => {
                 type="primary"
                 danger
                 icon={<DeleteOutlined />}
-                onClick={() => onDelete(id)}
+                onClick={() => onDelete(id as string)}
               >
                 删除
               </Button>

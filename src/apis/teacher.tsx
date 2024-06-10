@@ -22,6 +22,8 @@ enum TeacherApi {
   GET_TEACHER_INFO = `${base_url}/getTeacherInfoById/`,
   // 修改讲师信息
   UPDATE_TEACHER_INFO = `${base_url}/updateTeacherInfoById`,
+  // 下载新增讲师模板
+  DOWNLOAD_TEACHER_TEMPLATE = `${base_url}/exportTemplate`,
 }
 
 // 分页查询讲师列表
@@ -72,4 +74,12 @@ export const updateTeacherInfoAPI = (data: Teacher) =>
     url: TeacherApi.UPDATE_TEACHER_INFO,
     method: 'POST',
     data,
+  })
+
+// 下载新增讲师模板
+export const downloadTeacherTemplateAPI = () =>
+  request({
+    url: TeacherApi.DOWNLOAD_TEACHER_TEMPLATE,
+    method: 'GET',
+    responseType: 'blob',
   })
