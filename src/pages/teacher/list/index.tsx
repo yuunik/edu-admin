@@ -22,6 +22,7 @@ import {
 } from '@ant-design/icons'
 import {
   deleteTeacherByIdAPI,
+  downloadTeacherTemplateAPI,
   getTeacherListByConditionAPI,
 } from '@/apis/teacher.tsx'
 import { Teacher, TeacherQuery } from '@/types/teacher.tsx'
@@ -158,7 +159,12 @@ const List = () => {
     }
   }
 
-  const onDownloadTemplate = () => {}
+  // 下载文件模板
+  const onDownloadTemplate = async () => {
+    await downloadTeacherTemplateAPI()
+    // 提示信息
+    message.success('下载文件模板成功')
+  }
 
   return (
     <div className="teacher-list-container">

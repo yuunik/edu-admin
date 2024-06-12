@@ -1,6 +1,9 @@
 import type { RouteObject } from 'react-router'
 import {
+  BookOutlined,
+  ClusterOutlined,
   HomeOutlined,
+  InsertRowAboveOutlined,
   SignatureOutlined,
   UnorderedListOutlined,
   UserAddOutlined,
@@ -16,6 +19,8 @@ import Any from '@/pages/any'
 // 引入二级路由
 import List from '@/pages/teacher/list'
 import Save from '@/pages/teacher/save'
+import SubjectList from '@/pages/subject/list'
+import SubjectSave from '@/pages/subject/save'
 // 引入布局组件
 import Layout from '@/layout'
 // 引入前置路由守卫组件
@@ -118,6 +123,35 @@ const routes: RouteType[] = [
       visible: true,
       label: '讲师管理',
       icon: <UserOutlined />,
+    },
+  },
+  {
+    path: '/subject',
+    element: <Layout />,
+    children: [
+      {
+        path: '/subject/list',
+        element: <SubjectList />,
+        meta: {
+          visible: true,
+          label: '课程列表',
+          icon: <InsertRowAboveOutlined />,
+        },
+      },
+      {
+        path: '/subject/save',
+        element: <SubjectSave />,
+        meta: {
+          visible: true,
+          label: '新增课程',
+          icon: <ClusterOutlined />,
+        },
+      },
+    ],
+    meta: {
+      visible: true,
+      label: '课程管理',
+      icon: <BookOutlined />,
     },
   },
 ]

@@ -12,6 +12,9 @@ export const useRedirect = () => {
       case '/teacher':
         navigate('/teacher/list')
         break
+      case '/subject':
+        navigate('/subject/list')
+        break
       // 添加更多的路径和重定向逻辑
       default:
         // 默认情况下不执行任何操作
