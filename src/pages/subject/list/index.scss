@@ -1,0 +1,8 @@
+.subject-list-container {
+  @include box-base-style;
+  padding: 20px;
+
+  .subject-search {
+    margin-bottom: 20px;
+  }
+}
