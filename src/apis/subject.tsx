@@ -2,30 +2,30 @@
 
 import { request } from '@/utils'
 import type { ResType } from '@/types/common.tsx'
-import type { AddCategoryField, SubjectRes } from '@/types/category.tsx'
+import type { AddSubjectField, SubjectRes } from '@/types/subject.tsx'
 
 // 课程管理模块API地址
 const base_api = '/eduservice/subject'
 
 // API 接口地址枚举
-enum CategoryAPI {
+enum SubjectAPI {
   // 获取课程分类信息
-  GET_CATEGORY_INFO = `${base_api}/getCategoryList`,
+  GET_SUBJECT_INFO = `${base_api}/getSubjectList`,
   // 新增课程分类信息
-  ADD_CATEGORY_INFO = `${base_api}/addCategory`,
+  ADD_SUBJECT_INFO = `${base_api}/addSubject`,
 }
 
 // 获取课程分类信息
-export const getCategoryInfoAPI = () =>
+export const getSubjectInfoAPI = () =>
   request<ResType<SubjectRes>>({
-    url: CategoryAPI.GET_CATEGORY_INFO,
+    url: SubjectAPI.GET_SUBJECT_INFO,
     method: 'GET',
   })
 
 // 新增课程分类信息
-export const addCategoryInfoAPI = (data: AddCategoryField) =>
+export const addSubjectInfoAPI = (data: AddSubjectField) =>
   request<ResType<object>>({
-    url: CategoryAPI.ADD_CATEGORY_INFO,
+    url: SubjectAPI.ADD_SUBJECT_INFO,
     method: 'POST',
     data,
   })

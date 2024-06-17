@@ -22,10 +22,10 @@ import Any from '@/pages/any'
 // 引入二级路由
 import TeacherList from '@/pages/teacher/list'
 import TeacherSave from '@/pages/teacher/save'
-import CategoryList from '@/pages/category/list'
-import CategorySave from '@/pages/category/save'
 import SubjectList from '@/pages/subject/list'
 import SubjectSave from '@/pages/subject/save'
+import CourseList from '@/pages/course/list'
+import CourseSave from '@/pages/course/save'
 // 引入布局组件
 import Layout from '@/layout'
 // 引入前置路由守卫组件
@@ -131,12 +131,12 @@ const routes: RouteType[] = [
     },
   },
   {
-    path: '/category',
+    path: '/subject',
     element: <Layout />,
     children: [
       {
-        path: '/category/list',
-        element: <CategoryList />,
+        path: '/subject/list',
+        element: <SubjectList />,
         meta: {
           visible: true,
           label: '课程分类列表',
@@ -144,8 +144,8 @@ const routes: RouteType[] = [
         },
       },
       {
-        path: '/category/save',
-        element: <CategorySave />,
+        path: '/subject/save',
+        element: <SubjectSave />,
         meta: {
           visible: true,
           label: '新增课程分类',
@@ -160,12 +160,12 @@ const routes: RouteType[] = [
     },
   },
   {
-    path: '/subject',
+    path: '/course',
     element: <Layout />,
     children: [
       {
-        path: '/subject/list',
-        element: <SubjectList />,
+        path: '/course/list',
+        element: <CourseList />,
         meta: {
           visible: true,
           label: '课程列表',
@@ -173,8 +173,8 @@ const routes: RouteType[] = [
         },
       },
       {
-        path: '/subject/save',
-        element: <SubjectSave />,
+        path: '/course/save',
+        element: <CourseSave />,
         meta: {
           visible: true,
           label: '新增课程',

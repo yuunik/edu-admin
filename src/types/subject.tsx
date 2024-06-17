@@ -17,7 +17,7 @@ export type SubjectRes = {
 }
 
 // 新增课程分类表单的数据类型
-export type AddCategoryField = {
+export type AddSubjectField = {
   /* 一级分类名称 */
   oneSubject: string
   /* 二级分类名称 */
