@@ -1,7 +1,10 @@
 import type { RouteObject } from 'react-router'
 import {
+  BarsOutlined,
   BookOutlined,
   ClusterOutlined,
+  DesktopOutlined,
+  FolderAddOutlined,
   HomeOutlined,
   InsertRowAboveOutlined,
   SignatureOutlined,
@@ -21,6 +24,8 @@ import TeacherList from '@/pages/teacher/list'
 import TeacherSave from '@/pages/teacher/save'
 import CategoryList from '@/pages/category/list'
 import CategorySave from '@/pages/category/save'
+import SubjectList from '@/pages/subject/list'
+import SubjectSave from '@/pages/subject/save'
 // 引入布局组件
 import Layout from '@/layout'
 // 引入前置路由守卫组件
@@ -126,11 +131,11 @@ const routes: RouteType[] = [
     },
   },
   {
-    path: '/subject',
+    path: '/category',
     element: <Layout />,
     children: [
       {
-        path: '/subject/list',
+        path: '/category/list',
         element: <CategoryList />,
         meta: {
           visible: true,
@@ -139,7 +144,7 @@ const routes: RouteType[] = [
         },
       },
       {
-        path: '/subject/save',
+        path: '/category/save',
         element: <CategorySave />,
         meta: {
           visible: true,
@@ -152,6 +157,35 @@ const routes: RouteType[] = [
       visible: true,
       label: '课程分类管理',
       icon: <BookOutlined />,
+    },
+  },
+  {
+    path: '/subject',
+    element: <Layout />,
+    children: [
+      {
+        path: '/subject/list',
+        element: <SubjectList />,
+        meta: {
+          visible: true,
+          label: '课程列表',
+          icon: <BarsOutlined />,
+        },
+      },
+      {
+        path: '/subject/save',
+        element: <SubjectSave />,
+        meta: {
+          visible: true,
+          label: '新增课程',
+          icon: <FolderAddOutlined />,
+        },
+      },
+    ],
+    meta: {
+      visible: true,
+      label: '课程管理',
+      icon: <DesktopOutlined />,
     },
   },
 ]
