@@ -2,17 +2,17 @@ import { Input, Tree } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { getSubjectInfoAPI } from '@/apis/subject.tsx'
+import type { SubjectInfo } from '@/types/subject.tsx'
 import './index.scss'
-import { SubjectInfo } from '@/types/subject.tsx'
 
-const List = () => {
+const CategoryList = () => {
   // 课程分类
   const [subjectData, setSubjectData] = useState<SubjectInfo[]>([])
-  // 搜索关键字
-  const [keyword, setKeyword] = useState<string>()
+  // 搜索栏关键字
+  const [keyword, setKeyword] = useState('')
 
   // 获取树形控件数据
-  const getSubjectData = async () => {
+  const getCategoryData = async () => {
     const {
       data: {
         code,
@@ -28,25 +28,48 @@ const List = () => {
   // 组件挂载时获取数据
   useEffect(() => {
     // 获取数据
-    getSubjectData()
+    getCategoryData()
   }, [])
 
   // 搜索栏 onChange 事件
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 获取搜索关键字
-    setKeyword(e.target.value)
+    // 获取搜索栏关键字
+    const {
+      target: { value },
+    } = e
+    setKeyword(value)
   }
+
+  // 根据关键字检索数据
+  const searchData = (keyword: string) => {
+    const result = subjectData.filter((subject) => {
+      if (subject.title.toLowerCase().includes(keyword.toLowerCase())) {
+        // 记录
+        return true
+      }
+      if (subject.children) {
+        const result = subject.children.filter((child) =>
+          child.title.toLowerCase().includes(keyword.toLowerCase()),
+        )
+        if (result.length !== 0) {
+          return true
+        }
+      }
+    })
+    return result
+  }
+
   return (
-    <div className="subject-list-container">
+    <div className="category-list-container">
       {/* 搜索栏*/}
       <Input
         placeholder="搜索课程分类"
-        className="subject-search"
+        className="category-search"
         onChange={onSearchChange}
       />
       {/* 树形控件 */}
       <Tree
-        treeData={subjectData}
+        treeData={keyword !== '' ? searchData(keyword) : subjectData}
         defaultSelectedKeys={['1178214681118568449']}
         switcherIcon={<DownOutlined />}
       />
@@ -54,4 +77,4 @@ const List = () => {
   )
 }
 
-export default List
+export default CategoryList

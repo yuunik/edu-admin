@@ -1,10 +1,10 @@
 import { Button, Form, Input } from 'antd'
 import './index.scss'
 
-const Save = () => {
+const CategorySave = () => {
   const { Item } = Form
   return (
-    <Form className="save-subject-form">
+    <Form className="save-category-form">
       <Item label="一级分类">
         <Input placeholder="请输入一级分类" />
       </Item>
@@ -27,4 +27,4 @@ const Save = () => {
   )
 }
 
-export default Save
+export default CategorySave

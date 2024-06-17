@@ -17,10 +17,10 @@ import Login from '@/pages/login'
 import Error from '@/pages/error'
 import Any from '@/pages/any'
 // 引入二级路由
-import List from '@/pages/teacher/list'
-import Save from '@/pages/teacher/save'
-import SubjectList from '@/pages/subject/list'
-import SubjectSave from '@/pages/subject/save'
+import TeacherList from '@/pages/teacher/list'
+import TeacherSave from '@/pages/teacher/save'
+import CategoryList from '@/pages/category/list'
+import CategorySave from '@/pages/category/save'
 // 引入布局组件
 import Layout from '@/layout'
 // 引入前置路由守卫组件
@@ -93,7 +93,7 @@ const routes: RouteType[] = [
     children: [
       {
         path: '/teacher/list',
-        element: <List />,
+        element: <TeacherList />,
         meta: {
           visible: true,
           label: '讲师列表',
@@ -102,7 +102,7 @@ const routes: RouteType[] = [
       },
       {
         path: '/teacher/save',
-        element: <Save />,
+        element: <TeacherSave />,
         meta: {
           visible: true,
           label: '新增讲师',
@@ -111,7 +111,7 @@ const routes: RouteType[] = [
       },
       {
         path: '/teacher/edit/:id',
-        element: <Save />,
+        element: <TeacherSave />,
         meta: {
           visible: false,
           label: '编辑讲师',
@@ -131,26 +131,26 @@ const routes: RouteType[] = [
     children: [
       {
         path: '/subject/list',
-        element: <SubjectList />,
+        element: <CategoryList />,
         meta: {
           visible: true,
-          label: '课程列表',
+          label: '课程分类列表',
           icon: <InsertRowAboveOutlined />,
         },
       },
       {
         path: '/subject/save',
-        element: <SubjectSave />,
+        element: <CategorySave />,
         meta: {
           visible: true,
-          label: '新增课程',
+          label: '新增课程分类',
           icon: <ClusterOutlined />,
         },
       },
     ],
     meta: {
       visible: true,
-      label: '课程管理',
+      label: '课程分类管理',
       icon: <BookOutlined />,
     },
   },

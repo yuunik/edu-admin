@@ -22,7 +22,7 @@ import type { Teacher, UploadAvatarType } from '@/types/teacher.tsx'
 import type { ResType } from '@/types/common.tsx'
 import './index.scss'
 
-const Save = () => {
+const TeacherSave = () => {
   const { Item } = Form
   const { Option } = Select
   const { TextArea } = Input
@@ -235,4 +235,4 @@ const Save = () => {
   )
 }
 
-export default Save
+export default TeacherSave

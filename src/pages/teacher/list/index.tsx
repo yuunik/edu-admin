@@ -32,7 +32,7 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import { useNavigate } from 'react-router-dom'
 
-const List = () => {
+const TeacherList = () => {
   // dayjs 使用中文
   dayjs.locale('zh-cn')
 
@@ -314,4 +314,4 @@ const List = () => {
   )
 }
 
-export default List
+export default TeacherList
