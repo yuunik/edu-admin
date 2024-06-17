@@ -10,6 +10,7 @@ import {
 } from 'antd'
 import {
   DownOutlined,
+  FullscreenExitOutlined,
   FullscreenOutlined,
   ReloadOutlined,
   SettingOutlined,
@@ -20,6 +21,7 @@ import './index.scss'
 import { clearInfo } from '@/store/modules/user.tsx'
 import { useNavigate } from 'react-router-dom'
 import { UserInfo } from '@/types/login.tsx'
+import { useState } from 'react'
 
 const Settings = () => {
   // 获取状态管理库的用户信息
@@ -56,6 +58,24 @@ const Settings = () => {
     },
   ]
 
+  // 全屏模式
+  const [isFullScreen, setIsFullScreen] = useState(false)
+
+  // 全屏显示事件
+  const onHandleFullScreen = () => {
+    // 获取全屏对象
+    const fullscreenElement = document.fullscreenElement
+    if (!fullscreenElement) {
+      // 进入全屏
+      setIsFullScreen(true)
+      document.documentElement.requestFullscreen()
+    } else {
+      // 退出全屏
+      setIsFullScreen(false)
+      document.exitFullscreen()
+    }
+  }
+
   return (
     <div className="base-setting-container">
       {/* 刷新按钮 */}
@@ -68,12 +88,15 @@ const Settings = () => {
         />
       </Tooltip>
       {/* 全屏按钮 */}
-      <Tooltip title="全屏显示">
+      <Tooltip title={isFullScreen ? '退出全屏' : '全屏显示'}>
         <Button
           type="default"
           shape="circle"
-          icon={<FullscreenOutlined />}
+          icon={
+            isFullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />
+          }
           size="small"
+          onClick={onHandleFullScreen}
         />
       </Tooltip>
       {/* 其他设置按钮 */}
