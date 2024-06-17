@@ -15,3 +15,11 @@ export type SubjectRes = {
   /* 课程分类信息列表 */
   subjectList: SubjectInfo[]
 }
+
+// 新增课程分类表单的数据类型
+export type AddCategoryField = {
+  /* 一级分类名称 */
+  oneSubject: string
+  /* 二级分类名称 */
+  twoSubject: string
+}

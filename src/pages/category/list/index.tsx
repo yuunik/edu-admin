@@ -1,8 +1,8 @@
 import { Input, Tree } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
-import { getSubjectInfoAPI } from '@/apis/subject.tsx'
-import type { SubjectInfo } from '@/types/subject.tsx'
+import { getCategoryInfoAPI } from '@/apis/category.tsx'
+import type { SubjectInfo } from '@/types/category.tsx'
 import './index.scss'
 
 const CategoryList = () => {
@@ -18,7 +18,7 @@ const CategoryList = () => {
         code,
         data: { subjectList },
       },
-    } = await getSubjectInfoAPI()
+    } = await getCategoryInfoAPI()
     if (code === 20000) {
       // 设置树形控件数据
       setSubjectData(subjectList)

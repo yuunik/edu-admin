@@ -16,12 +16,12 @@ import {
   SettingOutlined,
 } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
-import store from '@/store'
-import './index.scss'
+import { useState } from 'react'
 import { clearInfo } from '@/store/modules/user.tsx'
 import { useNavigate } from 'react-router-dom'
-import { UserInfo } from '@/types/login.tsx'
-import { useState } from 'react'
+import store from '@/store'
+import type { UserInfo } from '@/types/login.tsx'
+import './index.scss'
 
 const Settings = () => {
   // 获取状态管理库的用户信息

@@ -12,6 +12,9 @@ export const useRedirect = () => {
       case '/teacher':
         navigate('/teacher/list')
         break
+      case '/category':
+        navigate('/category/list')
+        break
       case '/subject':
         navigate('/subject/list')
         break
