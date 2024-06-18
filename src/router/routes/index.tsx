@@ -6,11 +6,14 @@ import {
   DesktopOutlined,
   FolderAddOutlined,
   HomeOutlined,
+  InfoOutlined,
   InsertRowAboveOutlined,
   SignatureOutlined,
   UnorderedListOutlined,
+  UploadOutlined,
   UserAddOutlined,
   UserOutlined,
+  YoutubeOutlined,
 } from '@ant-design/icons'
 import type { ReactElement } from 'react'
 
@@ -25,11 +28,13 @@ import TeacherSave from '@/pages/teacher/save'
 import SubjectList from '@/pages/subject/list'
 import SubjectSave from '@/pages/subject/save'
 import CourseList from '@/pages/course/list'
-import CourseSave from '@/pages/course/save'
 // 引入布局组件
 import Layout from '@/layout'
 // 引入前置路由守卫组件
 import AuthRouter from '@/components/AuthRouer'
+import CourseInfo from '@/pages/course/save/components/CourseInfo'
+import CourseChapter from '@/pages/course/save/components/CourseChapter'
+import CoursePublish from '@/pages/course/save/components/CoursePulish'
 
 // 路由类型
 type RouteType = RouteObject & {
@@ -174,11 +179,38 @@ const routes: RouteType[] = [
       },
       {
         path: '/course/save',
-        element: <CourseSave />,
+        element: <CourseInfo />,
         meta: {
           visible: true,
           label: '新增课程',
           icon: <FolderAddOutlined />,
+        },
+      },
+      {
+        path: '/course/info/:id',
+        element: <CourseInfo />,
+        meta: {
+          visible: false,
+          label: '编辑课程基本信息',
+          icon: <InfoOutlined />,
+        },
+      },
+      {
+        path: '/course/chapter/:id',
+        element: <CourseChapter />,
+        meta: {
+          visible: false,
+          label: '编辑课程章节',
+          icon: <YoutubeOutlined />,
+        },
+      },
+      {
+        path: '/course/publish/:id',
+        element: <CoursePublish />,
+        meta: {
+          visible: false,
+          label: '发布课程',
+          icon: <UploadOutlined />,
         },
       },
     ],

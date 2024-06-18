@@ -1,8 +1,8 @@
 import { Button, Form, Input, message } from 'antd'
-import './index.scss'
-import { AddSubjectField } from '@/types/subject.tsx'
-import { addSubjectInfoAPI } from '@/apis/subject.tsx'
 import { useNavigate } from 'react-router-dom'
+import type { AddSubjectField } from '@/types/subject.tsx'
+import { addSubjectInfoAPI } from '@/apis/subject.tsx'
+import './index.scss'
 
 const SubjectSave = () => {
   const { Item } = Form
@@ -23,7 +23,7 @@ const SubjectSave = () => {
   }
 
   return (
-    <Form className="save-category-form" onFinish={onHandleSubmit}>
+    <Form className="save-subject-form" onFinish={onHandleSubmit}>
       <Item<AddSubjectField>
         label="一级分类"
         name="oneSubject"

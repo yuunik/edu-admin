@@ -217,7 +217,15 @@ const TeacherSave = () => {
           beforeUpload={onBeforeUpload}
           onChange={onUploadChange}
         >
-          {avatarUrl ? <Image src={avatarUrl} alt="讲师头像" /> : uploadButton}
+          {avatarUrl ? (
+            <Image
+              src={avatarUrl}
+              alt="讲师头像"
+              style={{ borderRadius: '8px' }}
+            />
+          ) : (
+            uploadButton
+          )}
         </Upload>
       </Item>
       <Item<Teacher> label="讲师资历" name="career">

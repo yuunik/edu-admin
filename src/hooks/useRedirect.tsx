@@ -12,11 +12,11 @@ export const useRedirect = () => {
       case '/teacher':
         navigate('/teacher/list')
         break
-      case '/category':
-        navigate('/category/list')
-        break
       case '/subject':
         navigate('/subject/list')
+        break
+      case '/course':
+        navigate('/course/list')
         break
       // 添加更多的路径和重定向逻辑
       default:

@@ -48,6 +48,18 @@ const getMenuItemList = (routes: RouteType[]) => {
   return filteredRoutes
 }
 
+// 获取编辑模式下, 展开当前路径的匹配的菜单项
+const getEditModeSelectedKey = (pathname: string) => {
+  // 编辑讲师模式, 显示侧边栏的讲师列表页面
+  if (pathname.includes('/teacher')) {
+    return ['/teacher', '/teacher/list']
+  }
+  // 编辑课程模式, 显示侧边栏的课程新增页面
+  if (pathname.includes('/course')) {
+    return ['/course', '/course/save']
+  }
+}
+
 const EduMenu = () => {
   // 获取路径对象
   const location = useLocation()
@@ -60,11 +72,21 @@ const EduMenu = () => {
   // 当前展开项 key 数组
   let currentOpenKeys: string[] = []
   if (current.indexOf('/') === current.lastIndexOf('/')) {
+    // 首页导航
     currentOpenKeys.push(current)
   } else {
-    currentOpenKeys = [current.substring(0, current.lastIndexOf('/')), current]
-    // 若为编辑模式, 默认展开讲师列表管理
-    editMode && (currentOpenKeys = ['/teacher', '/teacher/list'])
+    // 首页以外的导航
+    // 若为编辑模式
+    if (editMode) {
+      // 编辑模式下, 展开当前路径的匹配的菜单项
+      currentOpenKeys = getEditModeSelectedKey(location.pathname) as string[]
+    } else {
+      // 非编辑模式下, 展开当前路径
+      currentOpenKeys = [
+        current.substring(0, current.lastIndexOf('/')),
+        current,
+      ]
+    }
   }
 
   // 当前展开项
@@ -86,11 +108,16 @@ const EduMenu = () => {
     navigate(key)
   }
 
+  // 监听路由变化, 更新当前选中项
   useEffect(() => {
     if (!editMode) {
       setCurrent(currentRoutePath)
     } else {
-      setCurrent('/teacher/list')
+      // 编辑模式下, 展开当前路径的匹配的菜单项
+      const editModeCurrentKey = (
+        getEditModeSelectedKey(location.pathname) as string[]
+      )[1]
+      setCurrent(editModeCurrentKey)
     }
   }, [location.pathname])
 

@@ -1,0 +1,9 @@
+.course-publish {
+  .btn-group {
+      margin-top: 20px;
+
+    button:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
