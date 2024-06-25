@@ -220,7 +220,7 @@ const TeacherList = () => {
           下载文件模板
         </Button>
         {/* 批量导入 */}
-        <Button type="default" danger icon={<PlusOutlined />}>
+        <Button type="primary" danger icon={<PlusOutlined />}>
           批量导入
         </Button>
       </div>

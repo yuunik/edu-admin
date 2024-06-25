@@ -51,7 +51,7 @@ const SubjectSave = () => {
         >
           保存
         </Button>
-        <Button type="default" htmlType="reset">
+        <Button type="primary" danger htmlType="reset">
           重置
         </Button>
       </Item>

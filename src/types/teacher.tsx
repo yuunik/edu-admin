@@ -60,3 +60,9 @@ export type UploadAvatarType = {
   /* 上传成功后的头像地址 */
   url: string
 }
+
+// 获取讲师列表接口返回的数据类型
+export type TeacherList = {
+  /* 讲师列表 */
+  teacherList: Teacher[]
+}
