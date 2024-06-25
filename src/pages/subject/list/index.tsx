@@ -1,8 +1,12 @@
-import { Button, Input, Tree } from 'antd'
+import { Button, Input, message, Tree, Upload, UploadProps } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
-import { getSubjectInfoAPI } from '@/apis/subject.tsx'
+import {
+  downloadSubjectTemplateAPI,
+  getSubjectInfoAPI,
+} from '@/apis/subject.tsx'
 import type { SubjectInfo } from '@/types/subject.tsx'
+import { downloadFile } from '@/utils/download.tsx'
 import './index.scss'
 
 const SubjectList = () => {
@@ -59,6 +63,26 @@ const SubjectList = () => {
     return result
   }
 
+  // 下载文件模板
+  const onDownloadTemplate = async () => {
+    const res = await downloadSubjectTemplateAPI()
+    // 下载文件
+    downloadFile(res, '课程分类模板.xlsx')
+  }
+
+  // 批量导入课程分类模板
+  const onImportSubjectData: UploadProps['onChange'] = (fileInfo) => {
+    const {
+      file: { status },
+    } = fileInfo
+    if (status === 'done') {
+      // 提示信息
+      message.success('导入成功')
+      // 刷新页面
+      getSubjectData()
+    }
+  }
+
   return (
     <div className="subject-list-container">
       <div className="subject-form">
@@ -69,10 +93,19 @@ const SubjectList = () => {
           onChange={onSearchChange}
         />
         <div className="btn-group">
-          <Button type="primary">下载文件模板</Button>
-          <Button type="primary" danger>
-            批量导入课程分类
+          <Button type="primary" onClick={onDownloadTemplate}>
+            下载文件模板
           </Button>
+          <Upload
+            action="http://localhost:1997/eduservice/subject/import"
+            accept=".xlsx"
+            showUploadList={false}
+            onChange={onImportSubjectData}
+          >
+            <Button type="primary" danger>
+              批量导入课程分类
+            </Button>
+          </Upload>
         </div>
       </div>
       {/* 树形控件 */}

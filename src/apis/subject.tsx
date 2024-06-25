@@ -39,6 +39,7 @@ export const downloadSubjectTemplateAPI = () =>
   request({
     url: SubjectAPI.DOWNLOAD_SUBJECT_TEMPLATE,
     method: 'GET',
+    responseType: 'blob',
   })
 
 // 导入课程分类模板
