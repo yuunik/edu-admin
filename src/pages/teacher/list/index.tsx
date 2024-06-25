@@ -9,6 +9,8 @@ import {
   Select,
   Table,
   Tag,
+  Upload,
+  UploadProps,
 } from 'antd'
 import {
   DeleteOutlined,
@@ -20,18 +22,18 @@ import {
   SearchOutlined,
   TrophyOutlined,
 } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
 import {
   deleteTeacherByIdAPI,
   downloadTeacherTemplateAPI,
   getTeacherListByConditionAPI,
 } from '@/apis/teacher.tsx'
-import { Teacher, TeacherQuery } from '@/types/teacher.tsx'
-import { PageParams } from '@/types/common.tsx'
-import './index.scss'
-import dayjs from 'dayjs'
-import 'dayjs/locale/zh-cn'
-import { useNavigate } from 'react-router-dom'
+import type { Teacher, TeacherQuery } from '@/types/teacher.tsx'
+import type { PageParams } from '@/types/common.tsx'
 import { downloadFile } from '@/utils/download.tsx'
+import './index.scss'
 
 const TeacherList = () => {
   // dayjs 使用中文
@@ -169,6 +171,19 @@ const TeacherList = () => {
     message.success('下载成功')
   }
 
+  // 批量导入
+  const onHandleUpload: UploadProps['onChange'] = (fileInfo) => {
+    const {
+      file: { status },
+    } = fileInfo
+    if (status === 'done') {
+      // 提示信息
+      message.success('导入成功')
+      // 重新渲染页面
+      pageTeacherListByCondition()
+    }
+  }
+
   return (
     <div className="teacher-list-container">
       {/* 讲师查询表单 */}
@@ -219,9 +234,16 @@ const TeacherList = () => {
             下载文件模板
           </Button>
           {/* 批量导入 */}
-          <Button type="primary" danger icon={<PlusOutlined />}>
-            批量导入
-          </Button>
+          <Upload
+            action="http://localhost:1997/eduservice/teacher/import"
+            showUploadList={false}
+            accept=".xlsx"
+            onChange={onHandleUpload}
+          >
+            <Button type="primary" danger icon={<PlusOutlined />}>
+              批量导入
+            </Button>
+          </Upload>
         </Form.Item>
       </Form>
       {/* 讲师列表 */}

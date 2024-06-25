@@ -9,6 +9,7 @@ import type {
   TeacherList,
   TeacherParams,
 } from '@/types/teacher.tsx'
+import { ReducerType } from '@reduxjs/toolkit'
 
 // 讲师模块基础地址
 const base_url = '/eduservice/teacher'
@@ -31,6 +32,8 @@ enum TeacherApi {
   DOWNLOAD_TEACHER_TEMPLATE = `${base_url}/exportTemplate`,
   // 获取讲师列表
   GET_TEACHER_LIST = `${base_url}/getTeacherInfoList`,
+  // 批量导入讲师
+  BATCH_IMPORT_TEACHER = `${base_url}/import`,
 }
 
 // 分页查询讲师列表
@@ -96,4 +99,12 @@ export const getTeacherListAPI = () =>
   request<ResType<TeacherList>>({
     url: TeacherApi.GET_TEACHER_LIST,
     method: 'GET',
+  })
+
+// 批量导入讲师
+export const batchImportTeacherAPI = (data: FormData) =>
+  request<ResType<object>>({
+    url: TeacherApi.BATCH_IMPORT_TEACHER,
+    method: 'POST',
+    data,
   })
