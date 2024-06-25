@@ -1,4 +1,4 @@
-import { Input, Tree } from 'antd'
+import { Button, Input, Tree } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { getSubjectInfoAPI } from '@/apis/subject.tsx'
@@ -61,12 +61,20 @@ const SubjectList = () => {
 
   return (
     <div className="subject-list-container">
-      {/* 搜索栏*/}
-      <Input
-        placeholder="搜索课程分类"
-        className="subject-search"
-        onChange={onSearchChange}
-      />
+      <div className="subject-form">
+        {/* 搜索栏*/}
+        <Input
+          placeholder="搜索课程分类"
+          className="subject-search"
+          onChange={onSearchChange}
+        />
+        <div className="btn-group">
+          <Button type="primary">下载文件模板</Button>
+          <Button type="primary" danger>
+            批量导入课程分类
+          </Button>
+        </div>
+      </div>
       {/* 树形控件 */}
       <Tree
         treeData={keyword !== '' ? searchData(keyword) : subjectData}

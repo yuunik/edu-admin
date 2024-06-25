@@ -31,6 +31,7 @@ import './index.scss'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import { useNavigate } from 'react-router-dom'
+import { downloadFile } from '@/utils/download.tsx'
 
 const TeacherList = () => {
   // dayjs 使用中文
@@ -161,15 +162,22 @@ const TeacherList = () => {
 
   // 下载文件模板
   const onDownloadTemplate = async () => {
-    await downloadTeacherTemplateAPI()
+    const res = await downloadTeacherTemplateAPI()
+    // 下载文件
+    downloadFile(res, '讲师新增模板.xlsx')
     // 提示信息
-    message.success('下载文件模板成功')
+    message.success('下载成功')
   }
 
   return (
     <div className="teacher-list-container">
       {/* 讲师查询表单 */}
-      <Form className="teacher-query" layout="inline" onFinish={onSearch}>
+      <Form
+        className="teacher-query"
+        layout="inline"
+        onFinish={onSearch}
+        style={{ display: 'flex', justifyContent: 'center' }}
+      >
         <Form.Item<TeacherQuery> label="讲师姓名" name="name">
           <Input placeholder="请输入讲师姓名" />
         </Form.Item>
@@ -190,13 +198,8 @@ const TeacherList = () => {
         <Form.Item<TeacherQuery> name="end">
           <DatePicker />
         </Form.Item>
-        <Form.Item>
-          <Button
-            type="primary"
-            icon={<SearchOutlined />}
-            style={{ marginRight: 10 }}
-            htmlType="submit"
-          >
+        <Form.Item className="btn-group">
+          <Button type="primary" icon={<SearchOutlined />} htmlType="submit">
             查询
           </Button>
           <Button
@@ -207,23 +210,20 @@ const TeacherList = () => {
           >
             重置
           </Button>
+          {/* 下载文件模板 */}
+          <Button
+            type="primary"
+            icon={<DownOutlined />}
+            onClick={onDownloadTemplate}
+          >
+            下载文件模板
+          </Button>
+          {/* 批量导入 */}
+          <Button type="primary" danger icon={<PlusOutlined />}>
+            批量导入
+          </Button>
         </Form.Item>
       </Form>
-      {/* 按钮组 */}
-      <div className="btn-group">
-        {/* 下载文件模板 */}
-        <Button
-          type="primary"
-          icon={<DownOutlined />}
-          onClick={onDownloadTemplate}
-        >
-          下载文件模板
-        </Button>
-        {/* 批量导入 */}
-        <Button type="primary" danger icon={<PlusOutlined />}>
-          批量导入
-        </Button>
-      </div>
       {/* 讲师列表 */}
       <Table
         dataSource={teacherList.map((item) => ({ ...item, key: item.id }))}

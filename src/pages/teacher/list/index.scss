@@ -3,11 +3,13 @@
     @include  box-base-style;
     margin-bottom: 20px;
     padding: 20px;
-  }
 
-  .btn-group {
-    &>button:not(:last-child) {
-      margin-right: 10px;
+    .btn-group {
+      margin-top: 10px;
+
+      button:not(:last-child) {
+        margin-right: 10px;
+      }
     }
   }
 

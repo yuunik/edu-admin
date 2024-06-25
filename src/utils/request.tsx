@@ -28,7 +28,9 @@ request.interceptors.response.use(
     const { code, message: msg } = response.data as ResType<
       typeof response.data.data
     >
-    if (code !== 20000) {
+    // 请求成功情况一: code 为 20000 时
+    // 请求成功情况二: responseType 为 'blob' 时, 即下载文件
+    if (code !== 20000 && response.config.responseType !== 'blob') {
       // 处理请求错误情况
       await message.error(msg)
       // 跳转至错误页面

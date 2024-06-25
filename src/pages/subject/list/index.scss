@@ -2,7 +2,22 @@
   @include box-base-style;
   padding: 20px;
 
-  .subject-search {
-    margin-bottom: 20px;
+  .subject-form {
+
+    .subject-search {
+      margin-bottom: 20px;
+      width: 50%;
+      display: inline;
+      margin-right: 20px;
+    }
+
+    .btn-group {
+      display: inline;
+
+      button:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
   }
+
 }
