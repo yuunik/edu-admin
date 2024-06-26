@@ -21,14 +21,14 @@ import type { Teacher } from '@/types/teacher.tsx'
 import type { SubjectInfo } from '@/types/subject.tsx'
 import type { ResType } from '@/types/common.tsx'
 import './index.scss'
+import '@wangeditor/editor/dist/css/style.css' // 引入 css
+import { Editor, Toolbar } from '@wangeditor/editor-for-react'
+import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 
 const CourseInfo: React.FC = () => {
   // 当前步骤
   const [currentStep] = useState<number>(0)
   const navigate = useNavigate()
-
-  // 获取文本框组件
-  const { TextArea } = Input
 
   // 步骤数据
   const stepsData = [
@@ -55,13 +55,14 @@ const CourseInfo: React.FC = () => {
   const onHandleSubmit = async (courseInfo: Course) => {
     // 处理课程封面数据
     const { cover } = courseInfo
+    //debugger
     // 回显图片地址
     const coverUrl = (
       (cover![0] as UploadFile<ResType<CourseCover>>)
         .response as ResType<CourseCover>
     ).data.url
     // 课程封面地址格式化
-    Object.assign(courseInfo, { cover: coverUrl })
+    Object.assign(courseInfo, { cover: coverUrl, description: description })
     // 调用接口, 保存课程信息
     const {
       data: {
@@ -188,6 +189,24 @@ const CourseInfo: React.FC = () => {
     return e?.fileList
   }
 
+  // wangEditor 实例
+  const [editor, setEditor] = useState<IDomEditor | null>(null)
+
+  // 工具栏配置
+  const toolbarConfig: Partial<IToolbarConfig> = {}
+
+  // 编辑器编辑
+  const editorConfig: Partial<IEditorConfig> = {
+    placeholder: '请输入课程简介',
+  }
+
+  const [description, setDescription] = useState('')
+  // 课程简介变化的回调
+  const onDescriptionChange = (editor: IDomEditor) => {
+    // 调用 wangEditor 的 setContents 方法设置内容
+    setDescription(editor.getHtml())
+  }
+
   return (
     <div className="course-info">
       <h2 style={{ textAlign: 'center' }}>新增课程信息</h2>
@@ -240,7 +259,30 @@ const CourseInfo: React.FC = () => {
           <InputNumber min={0} controls style={{ marginLeft: 14 }} />
         </Item>
         <Item<Course> label="课程简介" name="description">
-          <TextArea placeholder="请输入课程简介" rows={4} maxLength={6} />
+          <div
+            style={{
+              border: '1px solid rgba(217,217,217)',
+              borderRadius: '10px',
+              zIndex: 100,
+            }}
+          >
+            <Toolbar
+              editor={editor}
+              defaultConfig={toolbarConfig}
+              mode="default"
+              style={{ borderBottom: '1px solid rgba(217,217,217)' }}
+            />
+            <Editor
+              defaultConfig={editorConfig}
+              onCreated={setEditor}
+              onChange={onDescriptionChange}
+              mode="defualt"
+              style={{
+                height: 300,
+                overflowY: 'hidden',
+              }}
+            />
+          </div>
         </Item>
         <Item<Course>
           label="课程封面"
