@@ -1,12 +1,15 @@
 // 课程管理模块的API接口
 import { request } from '@/utils'
 import type { ResType } from '@/types/common'
-import type { Course, CourseId } from '@/types/course.tsx'
+import type { Course, CourseId, CourseRes } from '@/types/course.tsx'
 
 // 课程管理模块的API 地址
 enum CourseAPI {
   // 新增课程
   ADD_COURSE = '/eduservice/course/addCourseInfo',
+  // 获取课程详情
+  GET_COURSE_INFO = '/eduservice/course/getCourseInfo/',
+  // 修改课程信息
 }
 
 // 新增课程
@@ -15,4 +18,11 @@ export const addCourseInfoAPI = (data: Course) =>
     url: CourseAPI.ADD_COURSE,
     method: 'POST',
     data,
+  })
+
+// 获取课程详情
+export const getCourseInfoAPI = (data: string) =>
+  request<ResType<CourseRes>>({
+    url: CourseAPI.GET_COURSE_INFO + data,
+    method: 'GET',
   })

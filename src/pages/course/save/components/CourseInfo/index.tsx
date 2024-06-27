@@ -12,18 +12,19 @@ import {
 import { PlusOutlined } from '@ant-design/icons'
 import type { UploadFile, UploadProps } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
+import { Editor, Toolbar } from '@wangeditor/editor-for-react'
+// 引入富文本编辑器的 css
+import '@wangeditor/editor/dist/css/style.css'
 import { getTeacherListAPI } from '@/apis/teacher.tsx'
 import { getSubjectInfoAPI } from '@/apis/subject.tsx'
-import { addCourseInfoAPI } from '@/apis/course.tsx'
+import { addCourseInfoAPI, getCourseInfoAPI } from '@/apis/course.tsx'
 import type { Course, CourseCover } from '@/types/course.tsx'
 import type { Teacher } from '@/types/teacher.tsx'
 import type { SubjectInfo } from '@/types/subject.tsx'
 import type { ResType } from '@/types/common.tsx'
 import './index.scss'
-import '@wangeditor/editor/dist/css/style.css' // 引入 css
-import { Editor, Toolbar } from '@wangeditor/editor-for-react'
-import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 
 const CourseInfo: React.FC = () => {
   // 当前步骤
@@ -200,6 +201,7 @@ const CourseInfo: React.FC = () => {
     placeholder: '请输入课程简介',
   }
 
+  // 课程简介
   const [description, setDescription] = useState('')
   // 课程简介变化的回调
   const onDescriptionChange = (editor: IDomEditor) => {
@@ -207,11 +209,48 @@ const CourseInfo: React.FC = () => {
     setDescription(editor.getHtml())
   }
 
+  // 获取表单示例
+  const [form] = Form.useForm()
+
+  // 获取课程详情
+  const getCourseInfo = async (courseId: string) => {
+    const {
+      data: {
+        code,
+        data: { courseInfo },
+      },
+    } = await getCourseInfoAPI(courseId)
+    if (code === 20000) {
+      // 回显课程封面
+      setCourseCover(courseInfo.cover as string)
+      // 回显课程简介
+      setDescription(courseInfo.description as string)
+      // 回显二级分类
+      const selectedOneSubject = oneSubjectList.find(
+        (oneSubject) => oneSubject.key === courseInfo.subjectParentId,
+      )
+      setTwoSubjectList(selectedOneSubject?.children as SubjectInfo[])
+      // 回显表单数据
+      delete courseInfo.cover
+      form.setFieldsValue(courseInfo)
+    }
+  }
+
+  // 获取 courseId 参数
+  const { id } = useParams()
+  // 组件挂载完成后获取 params 参数
+  useEffect(() => {
+    if (id) {
+      // 回显课程信息
+      getCourseInfo(id)
+    }
+  }, [id])
+
   return (
     <div className="course-info">
       <h2 style={{ textAlign: 'center' }}>新增课程信息</h2>
       <Steps current={currentStep} items={stepsData} />
-      <Form style={{ marginTop: 20 }} onFinish={onHandleSubmit}>
+      <Form style={{ marginTop: 20 }} onFinish={onHandleSubmit} form={form}>
         <Item<Course> label="课程标题" name="title">
           <Input placeholder="请输入课程标题" />
         </Item>
@@ -276,6 +315,7 @@ const CourseInfo: React.FC = () => {
               defaultConfig={editorConfig}
               onCreated={setEditor}
               onChange={onDescriptionChange}
+              value={description}
               mode="defualt"
               style={{
                 height: 300,

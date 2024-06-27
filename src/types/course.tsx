@@ -18,7 +18,7 @@ export type Course = {
   /* 课程总数 */
   lessonNum: number
   /* 课程封面图 */
-  cover: string | UploadFile[]
+  cover?: string | UploadFile[]
   /* 课程购买人数 */
   buyCount: number
   /* 课程浏览人数 */
@@ -35,4 +35,9 @@ export type CourseId = {
 // 封面数据类型
 export type CourseCover = {
   url: string
+}
+
+// 返回的课程详情类型
+export type CourseRes = {
+  courseInfo: Course
 }
