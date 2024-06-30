@@ -29,6 +29,7 @@ import './index.scss'
 const CourseInfo: React.FC = () => {
   // 当前步骤
   const [currentStep] = useState<number>(0)
+  // 导航对象
   const navigate = useNavigate()
 
   // 步骤数据
@@ -242,9 +243,9 @@ const CourseInfo: React.FC = () => {
   useEffect(() => {
     if (id) {
       // 回显课程信息
-      getCourseInfo(id)
+      oneSubjectList.length > 0 && getCourseInfo(id)
     }
-  }, [id])
+  }, [id, oneSubjectList])
 
   return (
     <div className="course-info">
