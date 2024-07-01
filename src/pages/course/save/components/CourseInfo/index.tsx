@@ -19,7 +19,11 @@ import { Editor, Toolbar } from '@wangeditor/editor-for-react'
 import '@wangeditor/editor/dist/css/style.css'
 import { getTeacherListAPI } from '@/apis/teacher.tsx'
 import { getSubjectInfoAPI } from '@/apis/subject.tsx'
-import { addCourseInfoAPI, getCourseInfoAPI } from '@/apis/course.tsx'
+import {
+  addCourseInfoAPI,
+  editCourseInfoAPI,
+  getCourseInfoAPI,
+} from '@/apis/course.tsx'
 import type { Course, CourseCover } from '@/types/course.tsx'
 import type { Teacher } from '@/types/teacher.tsx'
 import type { SubjectInfo } from '@/types/subject.tsx'
@@ -53,8 +57,31 @@ const CourseInfo: React.FC = () => {
   // 获取Select的子标签
   const { Option } = Select
 
+  // 修改课程信息
+  const editCourseInfo = async (courseInfo: Course) => {
+    // 处理其余表单数据
+    Object.assign(courseInfo, {
+      id: id,
+      cover: courseCover,
+      description: description,
+    })
+    const {
+      data: { code },
+    } = await editCourseInfoAPI(courseInfo)
+    if (code === 20000) {
+      // 提示信息
+      message.success('修改成功')
+      // 跳转到课程详情页面
+      navigate(`/course/chapter/${id}`)
+    }
+  }
+
   // 表单提交的回调
   const onHandleSubmit = async (courseInfo: Course) => {
+    // 若有id, 则为编辑课程信息
+    if (id) {
+      return editCourseInfo(courseInfo)
+    }
     // 处理课程封面数据
     const { cover } = courseInfo
     //debugger

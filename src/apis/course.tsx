@@ -10,6 +10,7 @@ enum CourseAPI {
   // 获取课程详情
   GET_COURSE_INFO = '/eduservice/course/getCourseInfo/',
   // 修改课程信息
+  EDIT_COURSE_INFO = '/eduservice/course/editCourseInfo',
 }
 
 // 新增课程
@@ -25,4 +26,12 @@ export const getCourseInfoAPI = (data: string) =>
   request<ResType<CourseRes>>({
     url: CourseAPI.GET_COURSE_INFO + data,
     method: 'GET',
+  })
+
+// 修改课程信息
+export const editCourseInfoAPI = (data: Course) =>
+  request<ResType<object>>({
+    url: CourseAPI.EDIT_COURSE_INFO,
+    method: 'POST',
+    data,
   })
