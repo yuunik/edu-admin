@@ -14,3 +14,16 @@ export type ChapterListType = {
   /* 课程章节列表 */
   chapterList: ChapterDataType[]
 }
+
+// 课程章节类型
+export type ChapterType = {
+  /* 课程章节 id */
+  id?: string
+  /* 属于课程 id*/
+  courseId: string
+  /* 课程章节名称 */
+  title: string
+  /* 课程章节排序 */
+  sort: number
+  /* 课程章节视频列表 */
+}

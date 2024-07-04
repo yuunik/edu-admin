@@ -1,8 +1,17 @@
-import { Button, Steps, Table } from 'antd'
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  Modal,
+  Steps,
+  Table,
+} from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { getChapterListAPI } from '@/apis/chapter.tsx'
+import { addChapterAPI, getChapterListAPI } from '@/apis/chapter.tsx'
 import type { ChapterDataType, VideoDataType } from '@/types/chapter.tsx'
 import './index.scss'
 
@@ -65,6 +74,48 @@ const CourseChapter: React.FC = () => {
 
   // 获取 Table 的 Column 组件
   const { Column } = Table
+  // 获取 Form 的 Item 组件
+  const { Item } = Form
+
+  // 课程章节对话框是否可见
+  const [modalChapterVisible, setModelChapterVisible] = useState<boolean>(false)
+
+  // 打开课程章节对话框
+  const openChapterModal = () => {
+    // 重置表单
+    form.resetFields()
+    // 打开模态框
+    setModelChapterVisible(true)
+  }
+
+  // Form 的实例
+  const [form] = Form.useForm()
+
+  // 新增课程章节
+  const addChapter = async () => {
+    // 处理课程信息数据
+    const {
+      data: { code },
+    } = await addChapterAPI({
+      ...form.getFieldsValue(),
+      courseId: id,
+    })
+    if (code === 20000) {
+      // 提示信息
+      message.success('新增成功')
+      // 刷新课程章节列表信息
+      getChapterListInfo(id as string)
+      // 关闭模态框
+      setModelChapterVisible(false)
+    }
+  }
+
+  // 修改或新增课程章节
+  const onHandleSubmit = async () => {
+    addChapter()
+    // 关闭模态框
+    // setModelChapterVisible(false)
+  }
 
   return (
     <div className="course-chapter">
@@ -72,7 +123,9 @@ const CourseChapter: React.FC = () => {
         <h2 style={{ textAlign: 'center' }}>新增课程信息</h2>
         <Steps current={currentStep} items={stepsData} />
       </div>
-      <Button type="dashed">新增章节</Button>
+      <Button type="dashed" onClick={openChapterModal}>
+        新增章节
+      </Button>
       <Table
         dataSource={chapterList}
         bordered
@@ -122,6 +175,28 @@ const CourseChapter: React.FC = () => {
           下一步
         </Button>
       </div>
+      <Modal
+        title="添加课程章节"
+        open={modalChapterVisible}
+        onCancel={() => setModelChapterVisible(false)}
+        onOk={onHandleSubmit}
+        centered
+        destroyOnClose
+      >
+        <Form
+          initialValues={{ sort: 1 }}
+          labelCol={{ span: 4 }}
+          wrapperCol={{ span: 20 }}
+          form={form}
+        >
+          <Item label="章节名称" name="title">
+            <Input placeholder="请输入章节名称" />
+          </Item>
+          <Item label="排序" name="sort">
+            <InputNumber min={0} />
+          </Item>
+        </Form>
+      </Modal>
     </div>
   )
 }
