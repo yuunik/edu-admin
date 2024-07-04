@@ -1,12 +1,12 @@
 // 课程章节相关数据类型声明
 import type { TreeDataType } from '@/types/common.tsx'
 
-// 课程章节数据类型
+// 课程章节树形数据类型
 export type ChapterDataType = TreeDataType & {
   children?: VideoDataType[]
 }
 
-// 课程小节数据类型
+// 课程小节树形数据类型
 export type VideoDataType = TreeDataType
 
 // 返回的课程章节数据类型
@@ -25,5 +25,10 @@ export type ChapterType = {
   title: string
   /* 课程章节排序 */
   sort: number
-  /* 课程章节视频列表 */
+}
+
+// 回显的课程章节数据类型
+export type ChapterResType = {
+  /* 课程章节详情*/
+  eduChapter: ChapterType
 }

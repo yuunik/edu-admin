@@ -11,7 +11,11 @@ import {
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { addChapterAPI, getChapterListAPI } from '@/apis/chapter.tsx'
+import {
+  addChapterAPI,
+  getChapterAPI,
+  getChapterListAPI,
+} from '@/apis/chapter.tsx'
 import type { ChapterDataType, VideoDataType } from '@/types/chapter.tsx'
 import './index.scss'
 
@@ -112,9 +116,43 @@ const CourseChapter: React.FC = () => {
 
   // 修改或新增课程章节
   const onHandleSubmit = async () => {
-    addChapter()
-    // 关闭模态框
-    // setModelChapterVisible(false)
+    if (!chapterId) {
+      // 新增课程章节
+      addChapter()
+    } else {
+      // 修改课程章节
+    }
+  }
+
+  // 修改的课程章节 id
+  const [chapterId, setChapterId] = useState<string>('')
+
+  // 获取课程章节信息
+  const getChapterInfo = async (chapterId: string) => {
+    const {
+      data: {
+        code,
+        data: { eduChapter },
+      },
+    } = await getChapterAPI(chapterId)
+    if (code === 20000) {
+      // 回显课程章节信息
+      form.setFieldsValue(eduChapter)
+      // 获取课程章节 id
+      setChapterId(chapterId)
+    }
+  }
+
+  // 编辑课程章节模式
+  const [editChapterMode, setEditChapterMode] = useState<boolean>(false)
+  // 打开修改课程章节对话框
+  const onOpenEditChapterModal = (chapterId: string) => {
+    // 切换编辑课程章节模式
+    setEditChapterMode(true)
+    // 获取课程章节信息
+    getChapterInfo(chapterId)
+    // 打开弹窗
+    setModelChapterVisible(true)
   }
 
   return (
@@ -137,15 +175,13 @@ const CourseChapter: React.FC = () => {
           title="操作"
           dataIndex="operations"
           width={400}
-          render={(text, record: ChapterDataType | VideoDataType, index) => (
+          render={(_, record: ChapterDataType | VideoDataType) => (
             <div className="btn-group">
               <Button
                 type="primary"
                 icon={<EditOutlined />}
                 style={{ marginRight: 10 }}
-                onClick={() => {
-                  console.log(text, record, index)
-                }}
+                onClick={() => onOpenEditChapterModal(record.key)}
               >
                 修改
               </Button>
@@ -176,7 +212,7 @@ const CourseChapter: React.FC = () => {
         </Button>
       </div>
       <Modal
-        title="添加课程章节"
+        title={editChapterMode ? '修改课程章节' : '新增课程章节'}
         open={modalChapterVisible}
         onCancel={() => setModelChapterVisible(false)}
         onOk={onHandleSubmit}
