@@ -55,10 +55,11 @@ export const getChapterAPI = (data: string) =>
 
 /**
  * 修改课程章节
- * @param data 课程章节 id
+ * @param data 修改的课程章节数据
  */
-export const editChapterAPI = (data: string) =>
+export const editChapterAPI = (data: ChapterType) =>
   request<ResType<object>>({
-    url: ChapterAPI.EDIT_CHAPTER + data,
+    url: ChapterAPI.EDIT_CHAPTER,
     method: 'POST',
+    data,
   })

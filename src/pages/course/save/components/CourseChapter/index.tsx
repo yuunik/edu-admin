@@ -13,6 +13,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import {
   addChapterAPI,
+  editChapterAPI,
   getChapterAPI,
   getChapterListAPI,
 } from '@/apis/chapter.tsx'
@@ -115,12 +116,13 @@ const CourseChapter: React.FC = () => {
   }
 
   // 修改或新增课程章节
-  const onHandleSubmit = async () => {
+  const onHandleSubmit = () => {
     if (!chapterId) {
       // 新增课程章节
       addChapter()
     } else {
       // 修改课程章节
+      editChapter()
     }
   }
 
@@ -153,6 +155,23 @@ const CourseChapter: React.FC = () => {
     getChapterInfo(chapterId)
     // 打开弹窗
     setModelChapterVisible(true)
+  }
+
+  // 编辑课程章节
+  const editChapter = async () => {
+    const {
+      data: { code },
+    } = await editChapterAPI({ ...form.getFieldsValue(), id: chapterId })
+    if (code === 20000) {
+      // 提示信息
+      message.success('修改成功')
+      // 关闭编辑课程章节模式
+      setEditChapterMode(false)
+      // 关闭课程章节对话框
+      setModelChapterVisible(false)
+      // 刷新课程章节列表信息
+      getChapterListInfo(id as string)
+    }
   }
 
   return (
