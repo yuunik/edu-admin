@@ -48,3 +48,11 @@ export type RouteType = RouteObject & {
   }
   children?: RouteType[]
 }
+
+// 树状结构数据通用的数据类型
+export type TreeDataType = {
+  /* 节点ID */
+  key: string
+  /* 节点标题 */
+  title: string
+}

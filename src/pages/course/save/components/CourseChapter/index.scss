@@ -1,4 +1,16 @@
 .course-chapter {
+  .chapter-header {
+
+  }
+
+  &>button {
+    margin-top: 20px;
+  }
+
+  .chapter-content {
+    margin: 20px 0;
+  }
+
   .btn-group {
     margin-top: 20px;
 
@@ -6,4 +18,5 @@
       margin-right: 10px;
     }
   }
+
 }
