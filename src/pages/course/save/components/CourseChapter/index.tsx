@@ -5,6 +5,7 @@ import {
   InputNumber,
   message,
   Modal,
+  Popconfirm,
   Steps,
   Table,
 } from 'antd'
@@ -16,6 +17,7 @@ import {
   editChapterAPI,
   getChapterAPI,
   getChapterListAPI,
+  removeChapterAPI,
 } from '@/apis/chapter.tsx'
 import type { ChapterDataType, VideoDataType } from '@/types/chapter.tsx'
 import './index.scss'
@@ -165,10 +167,25 @@ const CourseChapter: React.FC = () => {
     if (code === 20000) {
       // 提示信息
       message.success('修改成功')
+      // 清除所修改的课程章节 id
+      setChapterId('')
       // 关闭编辑课程章节模式
       setEditChapterMode(false)
       // 关闭课程章节对话框
       setModelChapterVisible(false)
+      // 刷新课程章节列表信息
+      getChapterListInfo(id as string)
+    }
+  }
+
+  // 删除课程章节
+  const onDeleteChapter = async (chapterId: string) => {
+    const {
+      data: { code },
+    } = await removeChapterAPI(chapterId)
+    if (code === 20000) {
+      // 提示信息
+      message.success('删除成功')
       // 刷新课程章节列表信息
       getChapterListInfo(id as string)
     }
@@ -204,9 +221,17 @@ const CourseChapter: React.FC = () => {
               >
                 修改
               </Button>
-              <Button type="primary" danger icon={<DeleteOutlined />}>
-                删除
-              </Button>
+              <Popconfirm
+                title="删除提示"
+                description="确认删除该章节吗?"
+                okText="确认"
+                cancelText="取消"
+                onConfirm={() => onDeleteChapter(record.key)}
+              >
+                <Button type="primary" danger icon={<DeleteOutlined />}>
+                  删除
+                </Button>
+              </Popconfirm>
               <Button
                 type="default"
                 style={{

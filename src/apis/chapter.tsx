@@ -20,6 +20,8 @@ enum ChapterAPI {
   GET_CHAPTER_DETAIL = `${baseURL}/getChapterInfo/`,
   // 修改课程章节
   EDIT_CHAPTER = `${baseURL}/editChapter/`,
+  // 删除课程章节
+  REMOVE_CHAPTER = `${baseURL}/removeChapter/`,
 }
 
 /**
@@ -62,4 +64,14 @@ export const editChapterAPI = (data: ChapterType) =>
     url: ChapterAPI.EDIT_CHAPTER,
     method: 'POST',
     data,
+  })
+
+/**
+ * 删除课程章节
+ * @param data 课程章节 id
+ */
+export const removeChapterAPI = (data: string) =>
+  request<ResType<object>>({
+    url: ChapterAPI.REMOVE_CHAPTER + data,
+    method: 'DELETE',
   })
