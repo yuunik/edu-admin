@@ -6,6 +6,7 @@ import {
   message,
   Modal,
   Popconfirm,
+  Radio,
   Steps,
   Table,
 } from 'antd'
@@ -20,6 +21,7 @@ import {
   removeChapterAPI,
 } from '@/apis/chapter.tsx'
 import type { ChapterDataType, VideoDataType } from '@/types/chapter.tsx'
+import { addVideoAPI } from '@/apis/video.tsx'
 import './index.scss'
 
 const CourseChapter: React.FC = () => {
@@ -191,6 +193,50 @@ const CourseChapter: React.FC = () => {
     }
   }
 
+  // 课程小节对话框是否可见
+  const [modalVideoVisible, setModelVideoVisible] = useState<boolean>(false)
+
+  // 获取 Radio 的 Group 组件
+  const { Group } = Radio
+
+  // 打开新增课程小节对话框
+  const onOpenAddVideoModal = (chapterId: string) => {
+    // 重置表单
+    videoForm.resetFields()
+    // 获取需要添加课程小节的课程章节 id
+    setChapterId(chapterId)
+    // 打开弹窗
+    setModelVideoVisible(true)
+  }
+
+  // videoForm 的实例
+  const [videoForm] = Form.useForm()
+
+  // 新增课程小节
+  const addVideo = async () => {
+    const {
+      data: { code },
+    } = await addVideoAPI({
+      courseId: id,
+      chapterId,
+      ...videoForm.getFieldsValue(),
+    })
+    if (code === 20000) {
+      // 提示信息
+      message.success('新增成功')
+      // 关闭弹窗
+      setModelVideoVisible(false)
+      // 刷新课程章节列表信息
+      getChapterListInfo(id as string)
+    }
+  }
+
+  // 新增或修改课程小节
+  const onHandleSubmitVideo = () => {
+    // 新增课程小节
+    addVideo()
+  }
+
   return (
     <div className="course-chapter">
       <div className="chapter-header">
@@ -239,6 +285,7 @@ const CourseChapter: React.FC = () => {
                     ? 'visible'
                     : 'hidden',
                 }}
+                onClick={() => onOpenAddVideoModal(record.key)}
               >
                 新增小节
               </Button>
@@ -255,6 +302,7 @@ const CourseChapter: React.FC = () => {
           下一步
         </Button>
       </div>
+      {/* 课程章节对话框 */}
       <Modal
         title={editChapterMode ? '修改课程章节' : '新增课程章节'}
         open={modalChapterVisible}
@@ -275,6 +323,30 @@ const CourseChapter: React.FC = () => {
           <Item label="排序" name="sort">
             <InputNumber min={0} />
           </Item>
+        </Form>
+      </Modal>
+      {/* 课程小节对话框 */}
+      <Modal
+        title="新增课程小节"
+        open={modalVideoVisible}
+        centered
+        onOk={onHandleSubmitVideo}
+        onCancel={() => setModelVideoVisible(false)}
+      >
+        <Form initialValues={{ sort: 1 }} form={videoForm}>
+          <Item label="课时标题" name="title">
+            <Input placeholder="请输入课时标题" />
+          </Item>
+          <Item label="课时排序" name="sort">
+            <InputNumber min={0} />
+          </Item>
+          <Item label="是否免费" name="isFree">
+            <Group>
+              <Radio value={1}>免费</Radio>
+              <Radio value={0}>默认</Radio>
+            </Group>
+          </Item>
+          <Item label="上传视频"></Item>
         </Form>
       </Modal>
     </div>
