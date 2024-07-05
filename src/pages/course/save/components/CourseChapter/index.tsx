@@ -21,7 +21,12 @@ import {
   removeChapterAPI,
 } from '@/apis/chapter.tsx'
 import type { ChapterDataType, VideoDataType } from '@/types/chapter.tsx'
-import { addVideoAPI, editVideoAPI, getVideoInfoAPI } from '@/apis/video.tsx'
+import {
+  addVideoAPI,
+  editVideoAPI,
+  getVideoInfoAPI,
+  removeVideoAPI,
+} from '@/apis/video.tsx'
 import './index.scss'
 
 const CourseChapter: React.FC = () => {
@@ -53,7 +58,7 @@ const CourseChapter: React.FC = () => {
 
   // 下一步的回调
   const onHandleNext = () => {
-    navigate('/course/publish/1234')
+    navigate(`/course/publish/${id}`)
   }
 
   // 课程章节列表信息
@@ -288,6 +293,19 @@ const CourseChapter: React.FC = () => {
     }
   }
 
+  // 删除课程小节
+  const onDeleteVideo = async (videoId: string) => {
+    const {
+      data: { code },
+    } = await removeVideoAPI(videoId)
+    if (code === 20000) {
+      // 提示信息
+      message.success('删除成功')
+      // 刷新课程章节列表信息
+      getChapterListInfo(id as string)
+    }
+  }
+
   return (
     <div className="course-chapter">
       <div className="chapter-header">
@@ -327,7 +345,11 @@ const CourseChapter: React.FC = () => {
                 description="确认删除该章节吗?"
                 okText="确认"
                 cancelText="取消"
-                onConfirm={() => onDeleteChapter(record.key)}
+                onConfirm={() =>
+                  (record as ChapterDataType).children
+                    ? onDeleteChapter(record.key)
+                    : onDeleteVideo(record.key)
+                }
               >
                 <Button type="primary" danger icon={<DeleteOutlined />}>
                   删除

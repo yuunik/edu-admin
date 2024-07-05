@@ -14,6 +14,8 @@ enum VideoApi {
   GET_VIDEO_INFO = `${baseUrl}/getVideoInfo/`,
   // 编辑课程小节
   EDIT_VIDEO = `${baseUrl}/editVideoInfo`,
+  // 删除课程小节
+  REMOVE_VIDEO = `${baseUrl}/removeVideo/`,
 }
 
 /**
@@ -46,4 +48,14 @@ export const editVideoAPI = (data: VideoType) =>
     url: VideoApi.EDIT_VIDEO,
     method: 'POST',
     data,
+  })
+
+/**
+ * 删除课程小节
+ * @param data 课程小节ID
+ */
+export const removeVideoAPI = (data: string) =>
+  request<ResType<object>>({
+    url: VideoApi.REMOVE_VIDEO + data,
+    method: 'DELETE',
   })
