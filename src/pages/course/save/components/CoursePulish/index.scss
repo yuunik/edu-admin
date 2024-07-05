@@ -1,6 +1,17 @@
 .course-publish {
+  .publish-header {
+
+  }
+
+  .course-card {
+    width: 100%;
+    margin: 20px auto 0;
+  }
+
   .btn-group {
-      margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 
     button:not(:last-child) {
       margin-right: 10px;

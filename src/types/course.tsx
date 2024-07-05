@@ -41,3 +41,35 @@ export type CourseCover = {
 export type CourseRes = {
   courseInfo: Course
 }
+
+// 发布课程的类型
+export type CoursePublishType = {
+  /* 课程 id*/
+  id: string
+  /* 课程标题 */
+  title: string
+  /* 课程封面 */
+  cover: string
+  /* 课程总课时数*/
+  lessonNum: number
+  /* 课程简介 */
+  description: string
+  /* 课程所属的一级分类标题 */
+  oneSubject: string
+  /* 课程所属的二级分类标题 */
+  twoSubject: string
+  /* 讲师姓名 */
+  teacherName: string
+  /* 讲师头像 */
+  teacherAvatar: string
+  /* 讲师简介*/
+  teacherIntro: string
+  /* 课程售价 */
+  price: string
+}
+
+// 返回的发布课程信息类型
+export type CoursePublishResType = {
+  /* 发布课程信息 */
+  coursePublishInfo: CoursePublishType
+}
