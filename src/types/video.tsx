@@ -13,3 +13,9 @@ export type VideoType = {
   /* 排序*/
   sort: number
 }
+
+// 回显的课程小节的数据类型
+export type VideoResType = {
+  /* 课程小节 */
+  eduVideo: VideoType
+}

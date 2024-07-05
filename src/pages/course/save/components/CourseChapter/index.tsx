@@ -21,7 +21,7 @@ import {
   removeChapterAPI,
 } from '@/apis/chapter.tsx'
 import type { ChapterDataType, VideoDataType } from '@/types/chapter.tsx'
-import { addVideoAPI } from '@/apis/video.tsx'
+import { addVideoAPI, editVideoAPI, getVideoInfoAPI } from '@/apis/video.tsx'
 import './index.scss'
 
 const CourseChapter: React.FC = () => {
@@ -234,7 +234,58 @@ const CourseChapter: React.FC = () => {
   // 新增或修改课程小节
   const onHandleSubmitVideo = () => {
     // 新增课程小节
-    addVideo()
+    videoId ? editVideo() : addVideo()
+  }
+
+  // 课程小节 id
+  const [videoId, setVideoId] = useState<string>('')
+
+  // 获取课程小节详情
+  const getVideoInfo = async (videoId: string) => {
+    const {
+      data: {
+        code,
+        data: { eduVideo },
+      },
+    } = await getVideoInfoAPI(videoId)
+    if (code === 20000) {
+      // 回显课程小节信息
+      videoForm.setFieldsValue(eduVideo)
+      // 获取课程小节 id
+      setVideoId(eduVideo.id as string)
+      // 获取课程章节 id
+      setChapterId(eduVideo.chapterId)
+    }
+  }
+
+  // 打开编辑课程小节对话框
+  const onOpenEditVideoModal = (videoId: string) => {
+    // 回显课程小节信息
+    getVideoInfo(videoId)
+    // 打开弹窗
+    setModelVideoVisible(true)
+  }
+
+  // 编辑课程小节
+  const editVideo = async () => {
+    const {
+      data: { code },
+    } = await editVideoAPI({
+      id: videoId,
+      courseId: id,
+      chapterId: chapterId,
+      ...videoForm.getFieldsValue(),
+    })
+    if (code === 20000) {
+      // 提示信息
+      message.success('修改成功')
+      // 关闭弹窗
+      setModelVideoVisible(false)
+      // 重置回显的课程小节 id
+      setVideoId('')
+      // 刷新课程章节列表信息
+      getChapterListInfo(id as string)
+    }
   }
 
   return (
@@ -263,7 +314,11 @@ const CourseChapter: React.FC = () => {
                 type="primary"
                 icon={<EditOutlined />}
                 style={{ marginRight: 10 }}
-                onClick={() => onOpenEditChapterModal(record.key)}
+                onClick={() =>
+                  (record as ChapterDataType).children
+                    ? onOpenEditChapterModal(record.key)
+                    : onOpenEditVideoModal(record.key)
+                }
               >
                 修改
               </Button>
