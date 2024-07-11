@@ -4,6 +4,7 @@ import type { ResType } from '@/types/common'
 import type {
   Course,
   CourseId,
+  CourseListResType,
   CoursePublishResType,
   CourseRes,
 } from '@/types/course.tsx'
@@ -18,6 +19,8 @@ enum CourseAPI {
   EDIT_COURSE_INFO = '/eduservice/course/editCourseInfo',
   // 获取发布课程信息
   GET_COURSE_PUBLISH_INFO = '/eduservice/course/getCoursePublishInfo/',
+  // 获取课程列表
+  GET_COURSE_LIST = '/eduservice/course/getCourseList',
 }
 
 // 新增课程
@@ -50,5 +53,14 @@ export const editCourseInfoAPI = (data: Course) =>
 export const getCoursePublishInfoAPI = (data: string) =>
   request<ResType<CoursePublishResType>>({
     url: CourseAPI.GET_COURSE_PUBLISH_INFO + data,
+    method: 'GET',
+  })
+
+/**
+ * 获取课程列表
+ */
+export const getCourseListAPI = () =>
+  request<ResType<CourseListResType>>({
+    url: CourseAPI.GET_COURSE_LIST,
     method: 'GET',
   })

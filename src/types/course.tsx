@@ -23,6 +23,8 @@ export type Course = {
   buyCount: number
   /* 课程浏览人数 */
   viewCount: number
+  /* 课程发布状态 */
+  status?: string
   /* 课程简介 */
   description: string
 }
@@ -72,4 +74,10 @@ export type CoursePublishType = {
 export type CoursePublishResType = {
   /* 发布课程信息 */
   coursePublishInfo: CoursePublishType
+}
+
+// 返回的课程列表类型
+export type CourseListResType = {
+  /* 课程列表 */
+  courseList: Course[]
 }
