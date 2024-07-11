@@ -1,24 +1,38 @@
 import { useEffect, useState } from 'react'
 import { Button, Form, Input, Select, Table, Tag } from 'antd'
-import { getCourseListAPI } from '@/apis/course.tsx'
-import { Course } from '@/types/course.tsx'
+import { pageCourseListAPI } from '@/apis/course.tsx'
+import { Course, CourseQueryType } from '@/types/course.tsx'
+import { DeleteFilled, EditFilled, InfoCircleFilled } from '@ant-design/icons'
 import './index.scss'
 
 const CourseList = () => {
   // 课程列表
   const [courseList, setCourseList] = useState<Course[]>()
 
+  // 查询课程列表的条件
+  const [courseQuery, setCourseQuery] = useState<CourseQueryType>({
+    current: 1,
+    pageSize: 5,
+    title: '',
+    status: '',
+  })
+
+  // 查询课程列表的总条数
+  const [total, setTotal] = useState<number>()
+
   // 获取课程列表
   const getCourseList = async () => {
     const {
       data: {
         code,
-        data: { courseList },
+        data: { records, total },
       },
-    } = await getCourseListAPI()
+    } = await pageCourseListAPI(courseQuery)
     if (code === 20000) {
       // 设置课程列表
-      setCourseList(courseList)
+      setCourseList(records)
+      // 设置查询条件的总条数
+      setTotal(total)
     }
   }
 
@@ -29,14 +43,30 @@ const CourseList = () => {
   // 获取 Table 的 Column
   const { Column } = Table
 
-  // 组件挂载后获取课程列表
+  // 组件挂载后获取课程列表, courseQuery 变化时重新获取课程列表
   useEffect(() => {
     getCourseList()
-  }, [])
+  }, [courseQuery])
+
+  // 页码改变时重新获取课程列表
+  const onPageChange = (current: number, pageSize: number) => {
+    setCourseQuery({ ...courseQuery, current, pageSize })
+  }
+
+  // 查询课程列表
+  const onSearchCourseInfo = (courseInfo: CourseQueryType) => {
+    setCourseQuery({ ...courseQuery, ...courseInfo })
+  }
+
+  // 重置查询条件
+  const onResetCourseInfo = () => {
+    setCourseQuery({ current: 1, pageSize: 5, title: '', status: '' })
+  }
+
   return (
     <div className="course-list-container">
       {/* 课程查询 */}
-      <Form layout="inline">
+      <Form layout="inline" onFinish={onSearchCourseInfo}>
         <Item<Course> name="title" label="课程名称">
           <Input placeholder="请输入课程名称" />
         </Item>
@@ -50,13 +80,33 @@ const CourseList = () => {
           <Button type="primary" htmlType="submit">
             查询
           </Button>
-          <Button type="primary" danger htmlType="reset">
+          <Button
+            type="primary"
+            danger
+            htmlType="button"
+            onClick={onResetCourseInfo}
+          >
             重置
           </Button>
         </Item>
       </Form>
       {/* 课程列表表格*/}
-      <Table dataSource={courseList} bordered style={{ marginTop: 20 }}>
+      <Table
+        dataSource={courseList}
+        bordered
+        style={{ marginTop: 20 }}
+        pagination={{
+          current: courseQuery.current,
+          pageSize: courseQuery.pageSize,
+          total: total,
+          hideOnSinglePage: true,
+          showQuickJumper: true,
+          showSizeChanger: true,
+          pageSizeOptions: ['5', '10', '20'],
+          showTotal: (total) => `共 ${total} 条数据`,
+          onChange: (current, pageSize) => onPageChange(current, pageSize),
+        }}
+      >
         <Column title="序号" key="id" render={(_, __, index) => index + 1} />
         <Column title="课程名称" dataIndex="title" key="title" />
         <Column
@@ -77,9 +127,15 @@ const CourseList = () => {
           key="operation"
           render={() => (
             <>
-              <Button type="link">编辑课程基本信息</Button>
-              <Button type="link">编辑课程大纲</Button>
-              <Button type="link">删除课程</Button>
+              <Button type="link" icon={<InfoCircleFilled />}>
+                编辑课程基本信息
+              </Button>
+              <Button type="link" icon={<EditFilled />}>
+                编辑课程大纲
+              </Button>
+              <Button type="link" icon={<DeleteFilled />}>
+                删除课程
+              </Button>
             </>
           )}
         />

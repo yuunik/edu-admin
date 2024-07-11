@@ -6,6 +6,7 @@ import type {
   CourseId,
   CourseListResType,
   CoursePublishResType,
+  CourseQueryType,
   CourseRes,
 } from '@/types/course.tsx'
 
@@ -20,7 +21,7 @@ enum CourseAPI {
   // 获取发布课程信息
   GET_COURSE_PUBLISH_INFO = '/eduservice/course/getCoursePublishInfo/',
   // 获取课程列表
-  GET_COURSE_LIST = '/eduservice/course/getCourseList',
+  PAGE_COURSE_LIST = '/eduservice/course/pageCourseList/',
 }
 
 // 新增课程
@@ -58,9 +59,14 @@ export const getCoursePublishInfoAPI = (data: string) =>
 
 /**
  * 获取课程列表
+ * @param data 课程查询条件
  */
-export const getCourseListAPI = () =>
+export const pageCourseListAPI = (data: CourseQueryType) =>
   request<ResType<CourseListResType>>({
-    url: CourseAPI.GET_COURSE_LIST,
-    method: 'GET',
+    url: CourseAPI.PAGE_COURSE_LIST + `${data.current}/${data.pageSize}`,
+    method: 'POST',
+    data: {
+      title: data.title,
+      status: data.status,
+    },
   })

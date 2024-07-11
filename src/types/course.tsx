@@ -79,5 +79,23 @@ export type CoursePublishResType = {
 // 返回的课程列表类型
 export type CourseListResType = {
   /* 课程列表 */
-  courseList: Course[]
+  records: Course[]
+  /* 总页数 */
+  total: number
+  /* 当前页码 */
+  current: number
+  /* 每页条数 */
+  pageSize: number
+}
+
+// 课程搜索参数类型
+export type CourseQueryType = {
+  /* 课程标题 */
+  title: string
+  /* 课程所属一级分类ID */
+  status: string
+  /* 当前页 */
+  current: number
+  /* 每页条数 */
+  pageSize: number
 }
