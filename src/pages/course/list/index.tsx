@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Button, Form, Input, Select, Table, Tag } from 'antd'
-import { pageCourseListAPI } from '@/apis/course.tsx'
-import { Course, CourseQueryType } from '@/types/course.tsx'
+import { useNavigate } from 'react-router-dom'
 import { DeleteFilled, EditFilled, InfoCircleFilled } from '@ant-design/icons'
+import { pageCourseListAPI } from '@/apis/course.tsx'
+import type { Course, CourseQueryType } from '@/types/course.tsx'
 import './index.scss'
 
 const CourseList = () => {
@@ -62,6 +63,9 @@ const CourseList = () => {
   const onResetCourseInfo = () => {
     setCourseQuery({ current: 1, pageSize: 5, title: '', status: '' })
   }
+
+  // 获取导航对象
+  const navigate = useNavigate()
 
   return (
     <div className="course-list-container">
@@ -125,12 +129,20 @@ const CourseList = () => {
         <Column
           title="操作"
           key="operation"
-          render={() => (
+          render={(_, { id }: Course) => (
             <>
-              <Button type="link" icon={<InfoCircleFilled />}>
+              <Button
+                type="link"
+                icon={<InfoCircleFilled />}
+                onClick={() => navigate(`/course/info/${id}`)}
+              >
                 编辑课程基本信息
               </Button>
-              <Button type="link" icon={<EditFilled />}>
+              <Button
+                type="link"
+                icon={<EditFilled />}
+                onClick={() => navigate(`/course/chapter/${id}`)}
+              >
                 编辑课程大纲
               </Button>
               <Button type="link" icon={<DeleteFilled />}>

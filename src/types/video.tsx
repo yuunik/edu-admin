@@ -12,6 +12,10 @@ export type VideoType = {
   title: string
   /* 排序*/
   sort: number
+  /* 课程视频的阿里云视频点播id */
+  videoSourceId: string
+  /* 课程视频名称 */
+  videoOriginalName: string
 }
 
 // 回显的课程小节的数据类型

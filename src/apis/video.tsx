@@ -16,6 +16,8 @@ enum VideoApi {
   EDIT_VIDEO = `${baseUrl}/editVideoInfo`,
   // 删除课程小节
   REMOVE_VIDEO = `${baseUrl}/removeVideo/`,
+  // 删除课程视频
+  REMOVE_VOD_VIDEO = `/vodservice/video/deleteVodVideo/`,
 }
 
 /**
@@ -57,5 +59,15 @@ export const editVideoAPI = (data: VideoType) =>
 export const removeVideoAPI = (data: string) =>
   request<ResType<object>>({
     url: VideoApi.REMOVE_VIDEO + data,
+    method: 'DELETE',
+  })
+
+/**
+ * 删除课程视频
+ * @param data 课程Vod视频ID
+ */
+export const removeVodVideoAPI = (data: string) =>
+  request<ResType<object>>({
+    url: VideoApi.REMOVE_VOD_VIDEO + data,
     method: 'DELETE',
   })

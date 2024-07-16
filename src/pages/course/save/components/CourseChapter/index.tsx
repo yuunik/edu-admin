@@ -9,10 +9,12 @@ import {
   Radio,
   Steps,
   Table,
+  Upload,
+  UploadProps,
 } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined, UploadOutlined } from '@ant-design/icons'
 import {
   addChapterAPI,
   editChapterAPI,
@@ -26,6 +28,7 @@ import {
   editVideoAPI,
   getVideoInfoAPI,
   removeVideoAPI,
+  removeVodVideoAPI,
 } from '@/apis/video.tsx'
 import './index.scss'
 
@@ -225,6 +228,8 @@ const CourseChapter: React.FC = () => {
       courseId: id,
       chapterId,
       ...videoForm.getFieldsValue(),
+      videoSourceId: videoIdAli,
+      videoOriginalName: videoNameAli,
     })
     if (code === 20000) {
       // 提示信息
@@ -304,6 +309,51 @@ const CourseChapter: React.FC = () => {
       // 刷新课程章节列表信息
       getChapterListInfo(id as string)
     }
+  }
+
+  // 上传的阿里云视频 id
+  const [videoIdAli, setVideoIdAli] = useState<string>('')
+  // 上传的阿里云视频名称
+  const [videoNameAli, setVideoNameAli] = useState<string>('')
+
+  // 上传视频组件的相关参数信息
+  const videoProps: UploadProps = {
+    name: 'videoFile',
+    action: 'http://localhost:1997/vodservice/video/upload',
+    onChange: (info) => {
+      // 上传成功
+      if (info.file.status === 'done') {
+        const {
+          file: {
+            response: {
+              data: { videoId },
+            },
+            name,
+          },
+        } = info
+        // 获取上传成功的视频信息
+        setVideoIdAli(videoId)
+        setVideoNameAli(name)
+      } else if (info.file.status === 'error') {
+        // 上传失败
+        message.error('上传失败')
+      }
+    },
+    // 限制上传的视频个数
+    maxCount: 1,
+    // 移除上传的视频
+    onRemove: async () => {
+      const {
+        data: { code },
+      } = await removeVodVideoAPI(videoIdAli)
+      if (code === 20000) {
+        // 提示信息
+        message.success('删除成功')
+        // 重置上传的阿里云视频信息
+        setVideoIdAli('')
+        setVideoNameAli('')
+      }
+    },
   }
 
   return (
@@ -423,7 +473,11 @@ const CourseChapter: React.FC = () => {
               <Radio value={0}>默认</Radio>
             </Group>
           </Item>
-          <Item label="上传视频"></Item>
+          <Item label="上传视频">
+            <Upload {...videoProps}>
+              <Button icon={<UploadOutlined />}>上传章节视频</Button>
+            </Upload>
+          </Item>
         </Form>
       </Modal>
     </div>
