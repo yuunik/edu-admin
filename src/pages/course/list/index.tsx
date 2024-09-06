@@ -47,7 +47,7 @@ const CourseList = () => {
   // 组件挂载后获取课程列表, courseQuery 变化时重新获取课程列表
   useEffect(() => {
     getCourseList()
-  }, [courseQuery])
+  }, [courseQuery, courseList])
 
   // 页码改变时重新获取课程列表
   const onPageChange = (current: number, pageSize: number) => {

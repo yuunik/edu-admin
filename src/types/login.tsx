@@ -6,7 +6,12 @@ export type LoginRes = {
 
 // 用户登录请求参数的数据类型
 export type LoginParams = {
-  username: string
+  /* 手机号 */
+  mobile?: string
+  /* 用户名 */
+  nickname?: string
+  /* 暂存信息 */
+  account?: string
   password: string
 }
 
@@ -18,4 +23,10 @@ export type UserInfo = {
   name: string
   /* 用户头像 */
   avatar: string
+}
+
+// 微信登录返回的数据类型
+export type WechatLoginRes = {
+  // 微信登录的 code
+  QRCodeUrl: string
 }
