@@ -8,20 +8,18 @@ import {
   QqOutlined,
   WechatOutlined,
 } from '@ant-design/icons'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { fetchLogin } from '@/store/modules/user.tsx'
 import { useLocation, useNavigate } from 'react-router-dom'
-import type { TooltipProps } from 'antd'
-import store from '@/store'
 import type { LoginParams } from '@/types/login'
+import store from '@/store'
+import { fetchLogin } from '@/store/modules/user.tsx'
 
 // 引入样式
 import './index.scss'
 import Left from '@/assets/images/login_left3.png'
 import Logo from '@/assets/images/logo.png'
-import { useState } from 'react'
 import { loginByWechat } from '@/apis/login'
-import { log } from 'console'
 
 const Login = () => {
   // 获取dispatch
@@ -34,7 +32,6 @@ const Login = () => {
   const [isShowWechatQRcode, setIsShowWechatQRcode] = useState(false)
   // 微信二维码地址
   const [wechatQRCodeUrl, setWechatQRCodeUrl] = useState('')
-  console.log(location)
 
   // 用户登录
   const login = async (values: LoginParams) => {
@@ -70,7 +67,7 @@ const Login = () => {
         code,
         data: { QRCodeUrl },
       },
-    } = await loginByWechat(encodeURIComponent(location.host))
+    } = await loginByWechat(encodeURIComponent(location.port))
     if (code === 20000) {
       // 保存二维码地址
       setWechatQRCodeUrl(QRCodeUrl)

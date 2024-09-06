@@ -33,8 +33,8 @@ export const getUserInfoAPI = () =>
   })
 
 // 微信登录
-export const loginByWechat = (originUrl: string) =>
+export const loginByWechat = (port: string) =>
   request<ResType<WechatLoginRes>>({
-    url: Login.LOGIN_WECHAT + `${originUrl}`,
+    url: Login.LOGIN_WECHAT + `${port}`,
     method: 'GET',
   })
