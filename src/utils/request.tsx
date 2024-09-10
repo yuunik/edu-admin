@@ -34,7 +34,8 @@ request.interceptors.response.use(
       // 处理请求错误情况
       await message.error(msg)
       // 跳转至错误页面
-      // window.location.href = '/error'
+      // TODO: token 失效, 路由跳转
+      // redirect('/login')
       return Promise.reject(new Error(msg))
     }
     return response

@@ -4,6 +4,7 @@ import type {
   LoginParams,
   LoginRes,
   UserInfo,
+  UserInfoRes,
   WechatLoginRes,
 } from '@/types/login.tsx'
 
@@ -12,7 +13,7 @@ enum Login {
   // 用户登录
   LOGIN = '/ucenterservice/member/loginUser',
   // 获取用户信息
-  GET_USER_INFO = '/eduservice/user/info',
+  GET_USER_INFO = '/ucenterservice/member/getUserInfo',
   // 微信登录
   LOGIN_WECHAT = '/api/ucenter/wx/getQRCode/',
 }
@@ -27,7 +28,7 @@ export const loginAPI = (data: LoginParams) =>
 
 // 获取用户信息
 export const getUserInfoAPI = () =>
-  request<ResType<UserInfo>>({
+  request<ResType<UserInfoRes>>({
     url: Login.GET_USER_INFO,
     method: 'GET',
   })

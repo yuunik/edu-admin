@@ -55,11 +55,17 @@ const fetchLogin = (data: LoginParams) => {
 const fetchInfo = () => {
   return async (dispatch: Dispatch) => {
     const {
-      data: { code, data },
+      data: {
+        code,
+        data: { userInfo },
+      },
     } = await getUserInfoAPI()
     if (code === 20000) {
       // 触发 actions
-      dispatch(setUserInfo(data))
+      dispatch(setUserInfo(userInfo))
+    } else {
+      // 路由跳转
+      window.location.href = '/login'
     }
   }
 }

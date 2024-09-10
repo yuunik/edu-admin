@@ -25,7 +25,7 @@ import './index.scss'
 
 const Settings = () => {
   // 获取状态管理库的用户信息
-  const { name, avatar } = useSelector(
+  const { avatar, nickname } = useSelector(
     (state: ReturnType<typeof store.getState>) =>
       state.user.userInfo as UserInfo,
   )
@@ -116,7 +116,7 @@ const Settings = () => {
         {/* 退出登录栏 */}
         <Dropdown menu={{ items: userInfoItems }}>
           <Space>
-            {name}
+            {nickname}
             <DownOutlined style={{ fontSize: 10 }} />
           </Space>
         </Dropdown>
