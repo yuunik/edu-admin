@@ -1,21 +1,11 @@
-import {
-  DatePicker,
-  DatePickerProps,
-  Form,
-  Select,
-  Button,
-  Tooltip,
-} from 'antd'
+import { DatePicker, DatePickerProps, Form, Select, Button } from 'antd'
+import { Line } from '@ant-design/plots'
+import { format } from 'fecha'
 import type { Dayjs } from 'dayjs'
 import React, { useState } from 'react'
 import { getChartDataAPI } from '@/apis/statistics'
-import './index.scss'
-import { Line } from '@ant-design/plots'
-import { format } from 'fecha'
 import type { ChartDataType } from '@/types/statistics'
-import { log } from 'console'
-import { title } from 'process'
-import { text } from 'stream/consumers'
+import './index.scss'
 
 const StatisticsChart: React.FC = () => {
   // 获取 Item
@@ -132,8 +122,13 @@ const StatisticsChart: React.FC = () => {
   }
 
   return (
-    <div className="statistics-chart-container">
-      <Form onFinish={onSubmit}>
+    <div
+      className="statistics-chart-container"
+      style={{
+        justifyContent: dataList.length > 0 ? 'space-between' : 'center',
+      }}
+    >
+      <Form onFinish={onSubmit} className="statistics-form">
         <Item label="统计数据类型">
           <Select
             style={{ width: 200 }}

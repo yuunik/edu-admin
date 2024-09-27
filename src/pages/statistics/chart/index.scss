@@ -1,9 +1,20 @@
 .statistics-chart-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 100%;
+
+  // 表单样式
+  .statistics-form {
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    transition: 0.2s all linear;
+
+    &:hover {
+      box-shadow: 0 0 10px #eee;
+    }
+  }
 
   // 图表样式
   .chart {
