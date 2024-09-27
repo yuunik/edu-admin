@@ -1,6 +1,5 @@
 import { GET_TOKEN } from '@/utils'
 import { Navigate } from 'react-router-dom'
-import { message } from 'antd'
 
 // 前置路由守卫
 interface Prop {
@@ -13,7 +12,6 @@ const AuthRouter: React.FC<Prop> = ({ children }) => {
   if (token) {
     return <>{children}</>
   } else {
-    message.error('token 已失效, 请重新登录')
     return <Navigate to="/login" replace />
   }
 }

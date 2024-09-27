@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/charts": "^2.2.1",
     "@ant-design/icons": "^5.3.7",
     "@reduxjs/toolkit": "^2.2.5",
     "@wangeditor/editor": "^5.1.23",

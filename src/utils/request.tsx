@@ -17,14 +17,14 @@ request.interceptors.request.use((config) => {
   const token = GET_TOKEN()
   if (token) {
     // 往请求头中加入 token
-    config.headers['Authorization'] = `${token}`
+    config.headers.Authorization = `${token}`
   }
   return config
 })
 
 // 响应拦截器
 request.interceptors.response.use(
-  async (response) => {
+  (response) => {
     const { code, message: msg } = response.data as ResType<
       typeof response.data.data
     >
@@ -32,10 +32,9 @@ request.interceptors.response.use(
     // 请求成功情况二: responseType 为 'blob' 时, 即下载文件
     if (code !== 20000 && response.config.responseType !== 'blob') {
       // 处理请求错误情况
-      await message.error(msg)
-      // 跳转至错误页面
-      // TODO: token 失效, 路由跳转
-      // redirect('/login')
+      message.error(msg)
+      // 路由跳转
+      window.location.href = '/login'
       return Promise.reject(new Error(msg))
     }
     return response

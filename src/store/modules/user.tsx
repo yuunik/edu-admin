@@ -4,6 +4,7 @@ import type { Dispatch } from '@reduxjs/toolkit'
 import { getUserInfoAPI, loginAPI } from '@/apis/login.tsx'
 import type { LoginParams, UserInfo } from '@/types/login.tsx'
 import { GET_TOKEN, REMOVE_TOKEN, SET_TOKEN } from '@/utils'
+import { log } from 'console'
 
 const userStore = createSlice({
   name: 'user',
@@ -64,6 +65,7 @@ const fetchInfo = () => {
       // 触发 actions
       dispatch(setUserInfo(userInfo))
     } else {
+      console.log('跳转了嘛？')
       // 路由跳转
       window.location.href = '/login'
     }
