@@ -14,6 +14,9 @@ import {
   UserAddOutlined,
   UserOutlined,
   YoutubeOutlined,
+  PieChartOutlined,
+  PlusOutlined,
+  LineChartOutlined,
 } from '@ant-design/icons'
 import type { ReactElement } from 'react'
 
@@ -28,6 +31,8 @@ import TeacherSave from '@/pages/teacher/save'
 import SubjectList from '@/pages/subject/list'
 import SubjectSave from '@/pages/subject/save'
 import CourseList from '@/pages/course/list'
+import StatisticsCreate from '@/pages/statistics/create'
+import StatisticsChart from '@/pages/statistics/chart'
 // 引入布局组件
 import Layout from '@/layout'
 // 引入前置路由守卫组件
@@ -218,6 +223,35 @@ const routes: RouteType[] = [
       visible: true,
       label: '课程管理',
       icon: <DesktopOutlined />,
+    },
+  },
+  {
+    path: '/statistics',
+    element: <Layout />,
+    children: [
+      {
+        path: '/statistics/create',
+        element: <StatisticsCreate />,
+        meta: {
+          visible: true,
+          label: '生成数据',
+          icon: <PlusOutlined />,
+        },
+      },
+      {
+        path: '/statistics/chart',
+        element: <StatisticsChart />,
+        meta: {
+          visible: true,
+          label: '统计图表',
+          icon: <LineChartOutlined />,
+        },
+      },
+    ],
+    meta: {
+      visible: true,
+      label: '统计与分析',
+      icon: <PieChartOutlined />,
     },
   },
 ]
