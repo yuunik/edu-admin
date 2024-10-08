@@ -1,4 +1,3 @@
-import type { RouteObject } from 'react-router'
 import {
   BarsOutlined,
   BookOutlined,
@@ -18,8 +17,8 @@ import {
   PlusOutlined,
   LineChartOutlined,
 } from '@ant-design/icons'
+import type { RouteObject } from 'react-router'
 import type { ReactElement } from 'react'
-
 // 引入一级路由
 import Home from '@/pages/home'
 import Login from '@/pages/login'
@@ -36,10 +35,10 @@ import StatisticsChart from '@/pages/statistics/chart'
 // 引入布局组件
 import Layout from '@/layout'
 // 引入前置路由守卫组件
-import AuthRouter from '@/components/AuthRouer'
+import AuthRouter from '@/components/AuthRouter'
 import CourseInfo from '@/pages/course/save/components/CourseInfo'
 import CourseChapter from '@/pages/course/save/components/CourseChapter'
-import CoursePublish from '@/pages/course/save/components/CoursePulish'
+import CoursePublish from '@/pages/course/save/components/CoursePublish'
 
 // 路由类型
 type RouteType = RouteObject & {
